@@ -2,14 +2,15 @@
 #define PROJETMANAGER
 #include "frabiquesingleton.h"
 
-class ProjetManager : public FrabriqueSingleton{
+class ProjetManager /*: public FrabriqueSingleton*/{
 private :
     static ProjetManager* instanceUnique;
     Projet** projets;
     unsigned int nb;
     unsigned int nbMax;
+
     void addItem(Projet* p);
-    Projet* trouverProjet(const string& id) const;
+    Projet* findProjet(const string& id) const;
     ProjetManager():projets(0),nb(0),nbMax(0){}
     ~ProjetManager(){for(unsigned int i=0; i<nb; i++) delete projets[i]; delete[] projets;}
     ProjetManager(const Projet& um);
@@ -24,12 +25,19 @@ private :
     string genererId();
 
    public:
+
     static ProjetManager& donneInstance();
     static void freeInstance();
 
+    Projet& getProjetByTache(const Tache&);
+
     Projet& ajouterProjet(const QString& nom,const QDate& dispo);
+    void deleteProjet(const QString& nom);
+
     Projet& getProjet(const QString& id);
-    const Projet& getProjet(const QString& code) const;
+    const Projet& getProjet(const QString& id) const;
+
+
     class Iterator {
         friend class ProjetManager;
         Projet** currentProjet;

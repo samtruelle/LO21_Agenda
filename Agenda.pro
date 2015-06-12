@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     Calendar.cpp \
-    timing.cpp
+    timing.cpp \
+    projetmanager.cpp
 
 HEADERS  += mainwindow.h \
     Calendar.h \

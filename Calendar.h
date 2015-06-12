@@ -13,106 +13,40 @@ private:
     QString info;
 };
 
-
-class Projet;
-
 class Tache;
 
-class Projet{
-    Tache** taches;
-    unsigned int nb;
-    unsigned int nbMax;
-    QString identificateur;
-    QString nom;
-    QDate dispo;
-    QDate echeance;
-    //QString file;
-    void addItem(Tache* t);
-    Tache* trouverTache(const QString& id) const;
-    Projet(const QString& id, const QString& nom, const QDate& d):/*taches(0),*/identificateur(id),nom(nom),dispo(d),nb(0),nbMax(0){}
 
-    Projet(const Projet& um);
-    Projet& operator=(const Projet& um);
-    //friend Projet& ProjetManager::ajouterProjet(const string& nom,const Date& dispo);
-    QString genererId();
+class Projet {
+        QString id;
+        unsigned int nb;
+        unsigned int nbMax;
+        QDate disponibilite;
+        QDate echeance;
+        Tache** taches;
 
-public:
-    static Projet& donneInstance();
-    static void libereInstance();
-
-    ~Projet();
-    //TacheUnitaire& ajouterTacheUnitaire(const QString& t, const QDate& dispo, const QDate& deadline, const Duree& duree, const bool premp);
-    //TacheComposite& ajouterTacheComposite(const QString& t, const QDate& dispo, const QDate& deadline);
-    Tache& getTache(const QString& id);
-    const Tache& getTache(const QString& code) const;
-
-    QString getId() const { return identificateur; }
-    QString getNom() const { return nom; }
-    QDate getDispo() const { return dispo; }
-    unsigned int getNbTaches() const { return nb; }
-    QDate getEcheance();
-
-    void setDatesDisponibiliteEcheance(const QDate& d, const QDate& e) {
-        if (e<d) throw CalendarException("erreur Tâche : date echéance < date disponibilité");
-        dispo=d; echeance=e;
-    }
-
-    //Tache& ajouterTache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt=false);
-
-    bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
-
-    //void load(const QString& f);
-    //void save(const QString& f);
-/*
-    class Iterator{
-        friend class projet;
-        Tache** currentTache;
-        unsigned int nbRemain;
-        Iterator(Tache** p, unsigned nb):currentTache(p),nbRemain(nb){}
+        Projet(const QString& id,const QDate& d, const QDate& e):
+                id(id),nb(0),nbMax(0),disponibilite(d), echeance(e){}
+        friend class ProjetManager;
     public:
-        Iterator():nbRemain(0),currentTache(0){}
-        bool isDone() const { return nbRemain==0; }
-        void next() {
-            if (isDone())
-                throw CalendarException("error, next on an iterator which is done");
-            nbRemain--;
-            currentTache++;
-        }
-        Tache& current() const {
-            if (isDone())
-                throw CalendarException("error, indirection on an iterator which is done");
-            return **currentTache;
-        }
+        QString getId() const { return id; }
+        void setId(const QString& id);
 
-    };
-    Iterator getIterator(){ return Iterator(taches,nb); }*/
+        unsigned int getNb() const {return nb;}
+        unsigned int getNbMax() const {return nbMax;}
 
-    class iterator {
-        Tache** current;
-        iterator(Tache** u):current(u){}
-        friend class Projet;
-    public:
-        iterator():current(0){}
-        Tache& operator*() const { return **current; }
-        bool operator!=(iterator it) const { return current!=it.current; }
-        iterator& operator++(){ ++current; return *this; }
-    };
-    iterator begin() { return iterator(taches); }
-    iterator end() { return iterator(taches+nb); }
+        QDate getDateDisponibilite() const { return disponibilite; }
+        QDate getDateEcheance() const { return echeance; }
+        void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
+        Tache* trouverTache(const QString& t) const;
 
-    class const_iterator {
-        Tache** current;
-        const_iterator(Tache** u):current(u){}
-        friend class Projet;
-    public:
-        const_iterator():current(0){}
-        Tache& operator*() const { return **current; }
-        bool operator!=(const_iterator it) const { return current!=it.current; }
-        const_iterator& operator++(){ ++current; return *this; }
+        //ListTachesConst getTaches() const;
+        //void addTaches(const ListTaches &t);
+        void addTache(const Tache* t);
+        //void suppTache(const Tache* t);
+
+        //void save(QXmlStreamWriter& stream) const;
     };
-    const_iterator begin() const { return const_iterator(taches); }
-    const_iterator end() const { return const_iterator(taches+nb); }
-};
+
 
 
 /*! \class Duree
@@ -148,39 +82,43 @@ QTextStream& operator>>(QTextStream&, Duree&); //lecture format hhHmm
 
 
 class Tache {
-    QString id;
     QString titre;
 
     QDate dispo;
     QDate echeance;
-    //bool preemptive;
+    bool preemptive;
     Tache** precedence;
 
-    Tache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt=false):
-            id(id),titre(t),dispo(dispo),echeance(deadline),preemptive(preempt){}
+    Tache( const QString& t, const QDate& d, const QDate& e, bool p=false):
+            titre(t),dispo(d),echeance(e),preemptive(p){}
 
-    Tache* trouverTache(const string& id) const;
+    Tache* trouverTache(const QString& id) const;
     Tache(const Tache& t);
 	Tache& operator=(const Tache&);
     friend class Projet;
 public:   
     virtual ~Tache(){}
-    QString getId() const { return id; }
-    void setId(const QString& str);
-    QString getTitre() const { return titre; }
-    void setTitre(const QString& str) { titre=str; }
 
-    QDate getDateDisponibilite() const {  return disponibilite; }
+    QString getTitre() const { return titre; }
+    void setTitre(const QString& str);
+
+    QDate getDateDispo() const {  return dispo; }
     QDate getDateEcheance() const {  return echeance; }
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
         if (e<disp) throw CalendarException("erreur Tâche : date echéance < date disponibilité");
-        disponibilite=disp; echeance=e;
+        dispo=disp; echeance=e;
     }
 
+    bool isPreemptive(){return preemptive;}
 };
 
 
-class TacheUnitaire : public Tache{
+class Evenement{
+
+
+};
+
+class TacheUnitaire : public Tache,Evenement{
     bool preemptive;
     Duree duree;
 
@@ -197,19 +135,19 @@ class TacheComposite : public Tache{
 };
 
 QTextStream& operator<<(QTextStream& f, const Tache& t);
-/*
+
 class TacheManager {
-private:
+
 	Tache** taches;
 	unsigned int nb;
 	unsigned int nbMax;
 	void addItem(Tache* t);
-    Tache* trouverTache(const QString& id) const;
+
     QString file;
-	TacheManager();
+    TacheManager():taches(0),nb(0),nbMax(0){}
 	~TacheManager();
-	TacheManager(const TacheManager& um);
-	TacheManager& operator=(const TacheManager& um);
+    TacheManager(const TacheManager& tm);
+    TacheManager& operator=(const TacheManager& tm);
 	struct Handler{
 		TacheManager* instance;
 		Handler():instance(0){}
@@ -224,6 +162,7 @@ public:
     const Tache& getTache(const QString& code) const;
     //void load(const QString& f);
     //void save(const QString& f);
+    Tache* trouverTache(const QString& t) const;
 	static TacheManager& getInstance();
 	static void libererInstance();
 
@@ -250,7 +189,6 @@ public:
 	Iterator getIterator() { 
 		return Iterator(taches,nb); 
 	}
-
 
 	class ConstIterator {
 		friend class TacheManager;
@@ -308,7 +246,7 @@ public:
 		unsigned int nbRemain;
         QDate dispo;
         DisponibiliteFilterIterator(Tache** u, unsigned nb, const QDate& d):currentTache(u),nbRemain(nb),dispo(d){
-            while(nbRemain>0 && dispo<(*currentTache)->getDateDisponibilite()){
+            while(nbRemain>0 && dispo<(*currentTache)->getDateDispo()){
 				nbRemain--; currentTache++;
 			}
 		}
@@ -320,7 +258,7 @@ public:
 				throw CalendarException("error, next on an iterator which is done"); 
 			do {
 				nbRemain--; currentTache++;
-            }while(nbRemain>0 && dispo<(*currentTache)->getDateDisponibilite());
+            }while(nbRemain>0 && dispo<(*currentTache)->getDateDispo());
 		}
 		Tache& current() const { 
 			if (isDone()) 
@@ -332,31 +270,36 @@ public:
 		return DisponibiliteFilterIterator(taches,nb,d); 
 	}
 };
-*/
+
+
 class Programmation {
-	const Tache* tache;
+    const Evenement* eve;
     QDate date;
     QTime horaire;
 public:
-    Programmation(const Tache& t, const QDate& d, const QTime& h):tache(&t), date(d), horaire(h){}
-	const Tache& getTache() const { return *tache; }
+    Programmation(const Evenement& e, const QDate& d, const QTime& h):eve(&e), date(d), horaire(h){}
+    const Evenement& getProg() const { return *eve; }
     QDate getDate() const { return date; }
     QTime getHoraire() const { return horaire; }
 };
 
 class ProgrammationManager {
-private:
+
 	Programmation** programmations;
 	unsigned int nb;
 	unsigned int nbMax;
 	void addItem(Programmation* t);
-	Programmation* trouverProgrammation(const Tache& t) const;
+    Programmation* trouverProgrammation(const Evenement& e) const;
 public:
 	ProgrammationManager();
 	~ProgrammationManager();
 	ProgrammationManager(const ProgrammationManager& um);
 	ProgrammationManager& operator=(const ProgrammationManager& um);
-    void ajouterProgrammation(const Tache& t, const QDate& d, const QTime& h);
+    void ajouterProgrammation(const Evenement& e, const QDate& d, const QTime& h);
 };
+
+
+
+
 
 #endif

@@ -36,51 +36,53 @@ QTextStream& operator>>(QTextStream& flot, Duree& duree){
  }
 
 QTextStream& operator<<(QTextStream& fout, const Tache& t){
-	fout<<t.getId()<<"\n";
 	fout<<t.getTitre()<<"\n";
 //	fout<<t.getDuree()<<"\n";
-    fout<<t.getDateDisponibilite().toString()<<"\n";
+    fout<<t.getDateDispo().toString()<<"\n";
     fout<<t.getDateEcheance().toString()<<"\n";
 	return fout;
 }
 
 QTextStream& operator<<(QDataStream& f, const Programmation& p);
 
-void Tache::setId(const QString& str){
-  if (TacheManager::getInstance().isTacheExistante((str))) throw CalendarException("erreur TacheManager : tache id déjà existante");
-  identificateur=str;
+void Tache::setTitre(const QString& str){
+  if (TacheManager::getInstance().isTacheExistante((str))) throw CalendarException("erreur TacheManager : tache déjà existante");
+  titre=str;
 }
 
 
-Projet::Projet():taches(0),nb(0),nbMax(0){}
-void Projet::addItem(Tache* t){
+//Projet::Projet():taches(0),nb(0),nbMax(0){}
+/*void Projet::addItem(Tache* t){
 	if (nb==nbMax){
-		Tache** newtab=new Tache*[nbMax+10];
+        Tache** new =new Tache*[nbMax+5];
 		for(unsigned int i=0; i<nb; i++) newtab[i]=taches[i];
-		// ou memcpy(newtab,taches,nb*sizeof(Tache*));
-		nbMax+=10;
+        nbMax+=5;
 		Tache** old=taches;
-		taches=newtab;
+        taches=new;
 		delete[] old;
 	}
 	taches[nb++]=t;
-}
+}*/
 
-Tache* Projet::trouverTache(const QString& id)const{
-	for(unsigned int i=0; i<nb; i++)
-		if (id==taches[i]->getId()) return taches[i];
+Tache* Projet::trouverTache(const QString& t)const{
+    for(unsigned int i=0; i<nb;i++)
+        if (t==taches[i]->getTitre()) return taches[i];
 	return 0;
 }
 
-Tache& Projet::ajouterTache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt){
+/*void Projet::addTaches(const ListTaches &t){
+
+}
+/*
+Tache& Projet::addTache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt){
 	if (trouverTache(id)) throw CalendarException("erreur, TacheManager, tache deja existante");	
     Tache* newt=new Tache(id,t,dur,dispo,deadline,preempt);
 	addItem(newt);
 	return *newt;
-}
+}*/
 
-Tache& TacheManager::getTache(const QString& id){
-	Tache* t=trouverTache(id);
+Tache& TacheManager::getTache(const QString& str){
+    Tache* t=trouverTache(str);
 	if (!t) throw CalendarException("erreur, TacheManager, tache inexistante");
 	return *t;
 }
@@ -229,6 +231,14 @@ void TacheManager::libererInstance(){
 	if (handler.instance!=0) delete handler.instance;
 	handler.instance=0;
 }
+
+Tache* TacheManager::trouverTache(const QString& t) const{
+    for(unsigned int i=0; i<nb;i++)
+        if (t==taches[i]->getTitre()) return taches[i];
+    return 0;
+}
+
+
 //******************************************************************************************
 /*
 ProgrammationManager::ProgrammationManager():programmations(0),nb(0),nbMax(0){}
