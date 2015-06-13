@@ -65,8 +65,16 @@ class Projet {
         QDate getEcheance() const { return echeance; }
 
         void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
-        Tache* trouverTache(const QString& t) const;
-
+        
+        
+        //Tache* trouverTache(const QString& t) const;
+        
+        /*!
+         * \brief getTaches
+         * \return list<Tache*> l'ensemble des tâches du projet  
+         */
+        list<Tache*>& getTaches(){return taches;}
+        
         //ListTachesConst getTaches() const;
         //void addTaches(const ListTaches &t);
         void addTache(const Tache* t);
@@ -439,8 +447,8 @@ public:
     Tache& getTache(const QString& id);
     bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
     const Tache& getTache(const QString& code) const;
-    void load(const QString& f);
-    void save(const QString& f);
+    //void load(const QString& f);
+    //void save(const QString& f);
     Tache* trouverTache(const QString& t) const;
 	static TacheManager& getInstance();
 	static void libererInstance();

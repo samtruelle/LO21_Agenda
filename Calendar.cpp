@@ -107,19 +107,6 @@ void TacheComposite::suppSousTache(const QString &t){
 }
 
 
-//Projet::Projet():taches(0),nb(0),nbMax(0){}
-/*void Projet::addItem(Tache* t){
-	if (nb==nbMax){
-        Tache** new =new Tache*[nbMax+5];
-		for(unsigned int i=0; i<nb; i++) newtab[i]=taches[i];
-        nbMax+=5;
-		Tache** old=taches;
-        taches=new;
-		delete[] old;
-	}
-	taches[nb++]=t;
-}*/
-
 Tache* Projet::trouverTache(const QString& t)const{
     for(unsigned int i=0; i<nb;i++)
         if (t==taches[i]->getTitre()) return taches[i];
