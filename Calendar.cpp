@@ -48,13 +48,63 @@ void Tache::setTitre(const QString& str){
   if (TacheManager::getInstance().isTacheExistante((str))) throw CalendarException("erreur TacheManager : tache déjà existante");
   titre=str;
 }
-void Tache::addPrecedente(const Tache *t){
-    list<Tache*>::iterator it = find(precedence.begin(), precedence.end(), t);
-    if (it == precedence.end())
-        throw CalendarException("Tache déjà existante");
-    precedence.push_back(t);
+
+Tache* Tache::findTache(Tache* t, list<Tache *> l){
+    list<Tache*>::iterator it = find(l.begin(), l.end(), t);
+    if (it == l.end())
+        return 0;
+    return (*it);
 }
 
+Tache* Tache::findTache(const QString& t, list<Tache *> l){
+    for(list<Tache*>::iterator it = l.begin(); it != l.end(); it++) {
+        if((*it)->getTitre() == t) {
+            return *it;
+        }
+    }
+    return 0;
+}
+
+bool Tache::existTache(Tache *t, list<Tache *> l){
+    list<Tache*>::iterator it = find(l.begin(), l.end(), t);
+    if (it == l.end())
+        return false;
+    return true;
+}
+
+bool Tache::existTache(const QString& t, list<Tache *> l){
+    for(list<Tache*>::iterator it = l.begin(); it != l.end(); it++) {
+        if((*it)->getTitre() == t) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+void Tache::addPrecedente(Tache *t){
+    /*list<Tache*>::iterator it = find(precedence.begin(), precedence.end(), t);
+    if (it == precedence.end())
+        throw CalendarException("Tache déjà existante");
+    precedence.push_back(t);*/
+
+    if(!existTache(t,precedence))
+        precedence.push_back(t);
+    else{
+        throw CalendarException("précedence déjà existante pour cette tâche");
+    }
+}
+
+
+void TacheComposite::addSousTache(Tache* t){
+    if(!existTache(t,sous_taches))
+        sous_taches.push_back(t);
+    else
+        throw CalendarException("Sous Tâche déjà existante pour cette tâche");
+}
+
+void TacheComposite::suppSousTache(const QString &t){
+}
 
 
 //Projet::Projet():taches(0),nb(0),nbMax(0){}

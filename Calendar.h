@@ -86,6 +86,7 @@ QTextStream& operator>>(QTextStream&, Duree&); //lecture format hhHmm
  *
  */
 class Tache {
+   protected:
     QString titre;/*!< Nom de la tâche*/
 
     QDate dispo;/*!< Date de disponibilité de la tâche*/
@@ -94,7 +95,7 @@ class Tache {
     /*!
       *  \brief Constructeur
       *
-      *  Constructeur privé de la classe Tache
+      *  Constructeur protected de la classe Tache
       *
       *  \param _t le titre de la tâche à créer
       *  \param _d la date de disponibilité de la tâche à créer
@@ -103,11 +104,10 @@ class Tache {
     Tache( const QString& t, const QDate& d, const QDate& e):
             titre(t),dispo(d),echeance(e){}
 
-    //Tache* trouverTache(const QString& id) const;
     /*!
       *  \brief Constructeur par recopie
       *
-      *  Constructeur par recopie privé de la classe Tache
+      *  Constructeur par recopie protected de la classe Tache
       */
     Tache(const Tache& t);
 
@@ -160,13 +160,57 @@ public:
     }
 
     /*!
+     *  \brief rechercher une tache
+     *
+     *  Methode qui permet de trouver une tache grâce à son titre
+     *
+     *  \param list<Tache*> list dans laquelle cherche la tache
+     *  \param Tache* la tâche à trouver
+     *  \return Tache& une référence vers la tâche recherchée ou null
+     */
+    Tache* findTache(Tache* t,list<Tache*> l);//A TESTER, getTitre plutot que t
+
+    /*!
+     *  \brief rechercher une tache
+     *
+     *  Methode qui permet de trouver une tache grâce à son titre
+     *
+     *  \param list<Tache*> list dans laquelle cherche la tache
+     *  \param QString& titre de la tâche à trouver
+     *  \return Tache& une référence vers la tâche recherchée ou null
+     */
+    Tache* findTache(const QString& t,list<Tache*> l);//A TESTER, getTitre plutot que t
+
+    /*!
+     *  \brief rechercher une tache
+     *
+     *  Methode qui permet de trouver une tache grâce à son titre
+     *
+     *  \param list<Tache*> list dans laquelle cherche la tache
+     *  \param Tache* la tâche à trouver
+     *  \bool True si la tache existe, false sinon
+     */
+    bool existTache(Tache* t,list<Tache*> l);//A TESTER
+
+    /*!
+     *  \brief rechercher une tache
+     *
+     *  Methode qui permet de trouver une tache grâce à son titre
+     *
+     *  \param list<Tache*> list dans laquelle cherche la tache
+     *  \param QString& titre de la tâche à trouver
+     *  \bool True si la tache existe, false sinon
+     */
+    bool existTache(const QString& t,list<Tache*> l);//A TESTER
+
+    /*!
      *  \brief Ajout d'une tâche précédente
      *
      *  Methode qui permet d'ajouter une tâche requise existante en tant que précédence.
      *
      *  \param tache pointeur vers la tâche à ajouter
      */
-    void addPrecedente(const Tache* t);
+    void addPrecedente(Tache* t);
 
 
     /*!
@@ -176,7 +220,10 @@ public:
      *
      *  \param QString& titre de la tâche à supprimer
      */
-    void suppPrecedente(const QString& title);
+    void suppPrecedente(Tache* t);
+
+
+
 
     /*!
      *  \brief Affichage des informations de la tâche
@@ -203,7 +250,7 @@ public :
      *
      *  \param _dur la durée de l'evenement a creer
      */
-    Activite(const Duree& dur):Evenement(dur){}
+    Evenement(const Duree& dur):Evenement(dur){}
 
     /*!
      *  \brief Getter de duree
@@ -257,7 +304,8 @@ public:
  */
 class TacheUnitaire : public Tache,Evenement{
 
-    bool preemptive; /*!< Statut de la 'préemptivité' de la tâche*/
+    bool preemptable; /*!< Statut de la 'préemptivité' de la tâche*/
+
 
     /*!
      *  \brief Constructeur
@@ -271,16 +319,71 @@ class TacheUnitaire : public Tache,Evenement{
      *  \param _p le statut de la preemptivité de la tâche
      */
     TacheUnitaire( const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p):
-        Tache(t,d,e),Evenement(dur),preemptive(p){}
+        Tache(t,d,e),Evenement(dur),preemptable(p){}
 public:
 
-    bool isPreemptive() const { return preemptive; }
-    void setPreemptive(bool b) { preemptive=b; }
+    /*!
+     *  \brief Getter preemptable
+     *
+     *  Methode qui permet de récupérer l'attribut preemptable d'une TacheUnitaire.
+     *
+     *  \return un boolean
+     */
+    bool ispreemptable() const { return preemptable; }
+
+    /*!
+     *  \brief Setter preemptable
+     *
+     *  Methode qui permet de modifier la valeur de l'attribut preemptable d'une TacheUnitaire.
+     *
+     *  \return void
+     */
+    void setpreemptable(bool b) { preemptable=b; }
 
 };
 
+
+
 class TacheComposite : public Tache{
-    Tache** sous_taches;
+    list<Tache*> sous_taches;
+    TacheComposite(const QString& t, const QDate& d, const QDate& e):
+        Tache(t,d,e),sous_taches(0){}
+public :
+
+    virtual ~TacheComposite() {}
+    /*!
+         *  \brief Ajout d'une sous tâche
+         *
+         *  Methode qui permet d'ajouter une sous tâche existante à la tâche composite.
+         *
+         *  \param t pointeur vers la tâche à ajouter
+         */
+    void addSousTache(Tache* t);
+    /*!
+     *  \brief Suppression d'une sous tâche
+     *
+     *  Methode qui permet de supprimer une tâche de la liste des sous tâches.
+     *
+     *  \param t le titre de la sous tâche à supprimer
+     */
+    void suppSousTache(const QString& t);
+    /*!
+     *  \brief Récupération d'une sous tache de la tâche composite
+     *
+     *  Methode qui permet de récupérer une sous tache ciblée de la tâche.
+     *
+     *  \param t le titre de la sous tâche à récupérer
+     *  \return une référence sur la tâche recherchée
+     */
+    Tache& getTacheComposante(const QString& t);
+    /*!
+     *  \brief Getter des sous tâches de la tâche.
+     *
+     *  Methode qui permet de récupérer toutes les tâches composantes de la tâche.
+     *
+     *  \return une référenc vers une list de toutes les sous tâches de la tâche
+     */
+    list<Tache*>& getSousTaches() { return sous_taches; }
 };
 
 QTextStream& operator<<(QTextStream& f, const Tache& t);
