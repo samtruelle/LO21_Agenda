@@ -4,7 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui\
+             xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,4 +26,5 @@ HEADERS  += mainwindow.h \
     projetmanager.h \
     fenetre.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mainwindow.ui

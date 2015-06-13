@@ -309,8 +309,8 @@ public:
     Tache& getTache(const QString& id);
     bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
     const Tache& getTache(const QString& code) const;
-    //void load(const QString& f);
-    //void save(const QString& f);
+    void load(const QString& f);
+    void save(const QString& f);
     Tache* trouverTache(const QString& t) const;
 	static TacheManager& getInstance();
 	static void libererInstance();

@@ -1,7 +1,7 @@
 #include "Calendar.h"
 #include <QFile>
 #include <QTextCodec>
-//#include <QtXml>
+#include <QtXml>
 #include <QMessageBox>
 
 QTextStream& operator<<(QTextStream& f, const Duree & d){ d.afficher(f); return f; }
