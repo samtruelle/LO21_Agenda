@@ -3,6 +3,7 @@
 #include <QString>
 #include <QDate>
 #include <QTextStream>
+#include <list>
 using namespace std;
 
 class CalendarException{
@@ -80,41 +81,113 @@ QTextStream& operator<<(QTextStream& f, const Duree & d);
 QTextStream& operator>>(QTextStream&, Duree&); //lecture format hhHmm
 
 
-
+/*! \class Tache
+ * \brief classe abstraite représentant une tâche générique
+ *
+ */
 class Tache {
-    QString titre;
+    QString titre;/*!< Nom de la tâche*/
 
-    QDate dispo;
-    QDate echeance;
-    bool preemptive;
-    Tache** precedence;
+    QDate dispo;/*!< Date de disponibilité de la tâche*/
+    QDate echeance;/*!< Date d'échéance de la tâche*/
+    list<Tache*> precedence;/*!< Liste des précédences requises*/
+    /*!
+      *  \brief Constructeur
+      *
+      *  Constructeur privé de la classe Tache
+      *
+      *  \param _t le titre de la tâche à créer
+      *  \param _d la date de disponibilité de la tâche à créer
+      *  \param _e la date d'échéance de la tâche à créer
+      */
+    Tache( const QString& t, const QDate& d, const QDate& e):
+            titre(t),dispo(d),echeance(e){}
 
-    Tache( const QString& t, const QDate& d, const QDate& e, bool p=false):
-            titre(t),dispo(d),echeance(e),preemptive(p){}
-
-    Tache* trouverTache(const QString& id) const;
+    //Tache* trouverTache(const QString& id) const;
+    /*!
+      *  \brief Constructeur par recopie
+      *
+      *  Constructeur par recopie privé de la classe Tache
+      */
     Tache(const Tache& t);
+
+    /*!
+      *  \brief operateur=
+      *
+      *  operateur= en privé pour éviter la recopie
+      */
 	Tache& operator=(const Tache&);
     friend class Projet;
 public:   
+    /*!
+        *  \brief Destructeur
+        *
+        *  Destructeur virtuel de la classe Tache
+        */
     virtual ~Tache(){}
 
+    /*!
+     *  \brief Getter de titre
+     *
+     *  Methode qui permet de récupérer le titre de la tâche.
+     *
+     *  \return un QString
+     */
     QString getTitre() const { return titre; }
     void setTitre(const QString& str);
 
+    /*!
+     *  \brief Getter de dispo
+     *
+     *  Methode qui permet de récupérer la date de dispo de la tâche.
+     *
+     *  \return une QDate
+     */
     QDate getDateDispo() const {  return dispo; }
+
+    /*!
+     *  \brief Getter de echeance
+     *
+     *  Methode qui permet de récupérer la date d'échéance de la tâche.
+     *
+     *  \return une QDate
+     */
     QDate getDateEcheance() const {  return echeance; }
+
     void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e) {
         if (e<disp) throw CalendarException("erreur Tâche : date echéance < date disponibilité");
         dispo=disp; echeance=e;
     }
 
-    bool isPreemptive(){return preemptive;}
+    /*!
+     *  \brief Ajout d'une tâche précédente
+     *
+     *  Methode qui permet d'ajouter une tâche requise existante en tant que précédence.
+     *
+     *  \param tache pointeur vers la tâche à ajouter
+     */
+    void addPrecedente(const Tache* t);
+
+
+    /*!
+     *  \brief Suppression d'une tâche précédente
+     *
+     *  Methode qui permet de retirer une tâche précédente.
+     *
+     *  \param QString& titre de la tâche à supprimer
+     */
+    void suppPrecedente(const QString& title);
+
+    /*!
+     *  \brief Affichage des informations de la tâche
+     *
+     *  Methode virtuelle pure permettant de rendre la classe abstraite.
+     */
+    virtual void DisplayTache() const = 0;
 };
 
 
 class Evenement{
-
 
 };
 

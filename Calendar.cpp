@@ -49,6 +49,13 @@ void Tache::setTitre(const QString& str){
   if (TacheManager::getInstance().isTacheExistante((str))) throw CalendarException("erreur TacheManager : tache déjà existante");
   titre=str;
 }
+void Tache::addPrecedente(const Tache *t){
+    list<Tache*>::iterator it = find(precedence.begin(), precedence.end(), t);
+    if (it == precedence.end())
+        throw CalendarException("Tache déjà existante");
+    precedence.push_back(t);
+}
+
 
 
 //Projet::Projet():taches(0),nb(0),nbMax(0){}
