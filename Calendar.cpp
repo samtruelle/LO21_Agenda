@@ -37,7 +37,6 @@ QTextStream& operator>>(QTextStream& flot, Duree& duree){
 
 QTextStream& operator<<(QTextStream& fout, const Tache& t){
 	fout<<t.getTitre()<<"\n";
-//	fout<<t.getDuree()<<"\n";
     fout<<t.getDateDispo().toString()<<"\n";
     fout<<t.getDateEcheance().toString()<<"\n";
 	return fout;

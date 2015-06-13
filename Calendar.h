@@ -187,17 +187,93 @@ public:
 };
 
 
+/*! \class Evenement
+ * \brief classe abstraite représentant un evenement programmable
+ *
+ */
 class Evenement{
-
-};
-
-class TacheUnitaire : public Tache,Evenement{
-    bool preemptive;
-    Duree duree;
+    Duree duree;/*!< Durée de l'évènement*/
 
 public :
+
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur public de la classe Evenement
+     *
+     *  \param _dur la durée de l'evenement a creer
+     */
+    Activite(const Duree& dur):Evenement(dur){}
+
+    /*!
+     *  \brief Getter de duree
+     *
+     *  Methode qui permet de récupérer la duree d'un evenement.
+     *
+     *  \return une Duree
+     */
     Duree getDuree() const { return duree; }
     void setDuree(const Duree& d) { duree=d; }
+
+    bool estProgramme();
+};
+
+
+/*! \class Activite
+ * \brief classe représentant activité traditionnelle
+ *
+ *  La classe Activite hérite de la classe Evenement.
+ */
+class Activite : public Evenement{
+
+    QString description;/*!< Description de l'activite*/
+
+public:
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur public de la classe Activite
+     *
+     *  \param _dur la durée de l'activite a creer
+     *  \param _d la description de l'activite a creer
+     */
+    Activite(const Duree& dur,const QString& d):Evenement(dur),description(d){}
+
+    /*!
+     *  \brief Getter de description
+     *
+     *  Methode qui permet de récupérer la description d'une activite.
+     *
+     *  \return un QString
+     */
+    QString getDescription() const { return description; }
+    void setDescription(const QString& d) { description=d; }
+};
+
+/*! \class TacheUnitaire
+ * \brief classe représentant une tâche unitaire
+ *
+ *  La classe TacheUnitaire hérite de la classe Tache et de la classe Evenement.
+ */
+class TacheUnitaire : public Tache,Evenement{
+
+    bool preemptive; /*!< Statut de la 'préemptivité' de la tâche*/
+
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur private de la classe TacheUnitaire
+     *
+     *  \param _t le titre de la tâche à créer
+     *  \param _d la date de disponibilité de la tâche à créer
+     *  \param _e la date d'échéance de la tâche à créer
+     *  \param _dur la durée de la tâche à créer
+     *  \param _p le statut de la preemptivité de la tâche
+     */
+    TacheUnitaire( const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p):
+        Tache(t,d,e),Evenement(dur),preemptive(p){}
+public:
+
     bool isPreemptive() const { return preemptive; }
     void setPreemptive(bool b) { preemptive=b; }
 
