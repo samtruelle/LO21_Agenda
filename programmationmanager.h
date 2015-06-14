@@ -1,6 +1,11 @@
 #ifndef PROGRAMMATIONMANAGER
 #define PROGRAMMATIONMANAGER
 #include "Calendar.h"
+#include <QFile>
+#include <QTextStream>
+#include <QXmlStreamWriter>
+
+
 
 /*! \class ProgrammationManager
  * \brief classe singleton gérant les programmations

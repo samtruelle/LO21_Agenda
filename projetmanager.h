@@ -3,6 +3,9 @@
 #include "frabiquesingleton.h"
 #include <list>
 #include "Calendar.h"
+#include <QFile>
+#include <QTextStream>
+#include <QXmlStreamWriter>
 
 /*! \class ProjetManager
  * \brief singleton de projet
@@ -122,7 +125,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *  \param QString fichier nom du fichier
      */
 
-    void save(const QString fichier);
+    void saveProjet(const QString fichier);
 
 };
 
