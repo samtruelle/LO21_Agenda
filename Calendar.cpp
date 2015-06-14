@@ -160,8 +160,12 @@ T& Projet::getTache(const QString& t) {
     throw CalendarException("Aucune tâche correspondante");
 }
 
-void Projet::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur,const QString& des, const bool p){
+void Projet::ajoutTacheUni(const QString& t, const QDate& d, const QDate& e, const unsigned int& dur,const QString& des, const bool p){
     if (trouverTache(t)) throw CalendarException("erreur Projet tache deja existante");
+    if(d>e)
+        throw CalendarException("Projet::ajoutTacheUni date de disponibilité supérieure a date d'échéance de la tâche");
+    if(echeance<e && d>echeance)
+        throw CalendarException("Projet::ajoutTacheUni la tâche n'est pas temporellement compatible avec le projet");
     TacheUnitaire* tacheuni=new TacheUnitaire(t,d,e,dur,des,p);
     ajouterTache(tacheuni);
 }
@@ -170,17 +174,21 @@ void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e)
 {
     if (trouverTache(t))
         throw CalendarException("erreur Projet tache deja existante");
+    if(d>e)
+        throw CalendarException("Projet::ajoutTacheUni date de disponibilité supérieure a date d'échéance de la tâche");
+    if(echeance<e && d>echeance)
+        throw CalendarException("Projet::ajoutTacheUni la tâche n'est pas temporellement compatible avec le projet");
     TacheComposite* comptache= new TacheComposite(t,d,e);
     ajouterTache(comptache);
 }
 
-
+/*
 bool Evenement::estProgramme(){
    ProgrammationManager pm = ProgrammationManager::getInstance();
    return pm.ExistProgrammation(this);
 
    ProjetManager pm2 = ProjetManager::getInstance();
-}
+}*/
 
 
 

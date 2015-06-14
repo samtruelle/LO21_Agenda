@@ -54,8 +54,11 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void ProjetManager::saveProjet(const QString& fichier) {
 =======
+=======
+>>>>>>> origin/master
 
 ProjetManager::~ProjetManager(){}
 

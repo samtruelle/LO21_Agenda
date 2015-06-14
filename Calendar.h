@@ -4,6 +4,9 @@
 #include <QDate>
 #include <QTextStream>
 #include <list>
+#include  "programmationmanager.h"
+#include "projetmanager.h"
+
 using namespace std;
 
 class CalendarException{
@@ -216,6 +219,7 @@ class Tache {
      *  Destructeur virtuel de la classe Tache
      */
     virtual ~Tache(){}
+
     friend class Projet;
 public:   
 
@@ -615,6 +619,7 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
+<<<<<<< HEAD
 /*<<<<<<< HEAD
 class ProgrammationManager {
 
@@ -636,6 +641,10 @@ public:
 =======
 
 >>>>>>> origin/master*/
+=======
+
+
+>>>>>>> origin/master
 
 
 #endif
