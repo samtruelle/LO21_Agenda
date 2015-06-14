@@ -31,21 +31,47 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->EmploiDate->setDate(QDate::currentDate());
 
 }
+void MainWindow::displayProgrammation(const Programmation &p)
+{
+    int date = p.getDate().dayOfWeek() -1;
+    int i=0;
+    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
+    {
+        ui->EmploiDuT->item(i, date)->setBackgroundColor(Qt::red);
+    }
+}
 
+void MainWindow::update()
+{
+    ProgrammationManager &p = ProgrammationManager::getInstance();
+    MainWindow::afficherEdt();
+    this->afficherEvt();
+}
+void MainWindow::on_AjouterTache_clicked(){
+  try{
+    TacheManager &m = TacheManager::getInstance();
+
+    if(ui->Preempt->isChecked()){
+    m.ajoutTacheUni(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),ui->DureeActivite->value());
+    }
+    else if (ui->composite->isChecked()){
+        m.ajoutTacheComp(ui->idTache->text(),ui->titre->text(), ui->dispoTache->date(),ui->echeanceTache->date());
+
+    }
+  
+
+    }catch(CalendarException e){
+//Prevoir une fenetre de retour de commandes 
+ui->Retour->appendPlainText("Erreur ajout tache ");
+    }
+
+}
 
 MainWindow::~MainWindow()
 {
     delete ui;
 
 }
-
-void MainWindow::afficherProgrammation(Programmation &p)
-{
-    int date = p.getDate().dayOfWeek();
-    int i=0;
-    ui->Retour_2->appendPlainText( p.getHoraire().toString("h"));
-    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
-    {
-        ui->Retour_2->appendPlainText("ghggh");
-    }
+void MainWindow::on_AjouterActivite_clicked() {
+    try{
 }

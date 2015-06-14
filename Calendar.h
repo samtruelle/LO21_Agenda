@@ -435,8 +435,10 @@ class TacheManager {
 	};
 	static Handler handler;
 public:
-    Tache& ajouterTache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt=false);
-    Tache& getTache(const QString& id);
+    Tache& ajouterTache(Tache* t);
+    void TacheManager::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p);
+    void TacheManager::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
+     Tache& getTache(const QString& id);
     bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
     const Tache& getTache(const QString& code) const;
     void load(const QString& f);

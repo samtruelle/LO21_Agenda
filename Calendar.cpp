@@ -281,6 +281,30 @@ Tache* TacheManager::trouverTache(const QString& t) const{
     return 0;
 }
 
+void TacheManager::ajouterTache(Tache* t){
+    if (nb==nbMax){
+        Tache** newtab=new Tache*[nbMax+10];
+        for(unsigned int i=0; i<nb; i++) newtab[i]=taches[i];
+        nbMax+=10;
+        Tache** old=taches;
+        taches=newtab;
+        delete[] old;
+    }
+    taches[nb++]=t;
+}
+
+void TacheManager::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p){
+    if (trouverTache(t)) throw CalendarException("erreur TacheManager tache deja existante");
+    TacheUnitaire* tacheuni=new TacheUnitaire(t,d,e,dur,p);
+    ajouterTache(tacheuni);
+}
+void TacheManager::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e)
+{
+    if (trouverTache(t))
+        throw CalendarException("erreur TacheManager tache deja existante");
+    TacheComposite* comptache= new TacheComposite(t,d,e);
+    ajouterTache(comptache);
+}
 
 //******************************************************************************************
 /*
