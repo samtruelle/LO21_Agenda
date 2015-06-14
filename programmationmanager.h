@@ -1,6 +1,7 @@
 #ifndef PROGRAMMATIONMANAGER
 #define PROGRAMMATIONMANAGER
 #include "Calendar.h"
+#include <list>
 
 /*! \class ProgrammationManager
  * \brief classe singleton gérant les programmations
@@ -8,7 +9,6 @@
  *  La classe ProgrammationManager centralise toutes les opérations applicables au programmation
  */
 class ProgrammationManager {
-
 
     list<Programmation*> programmations;/*!< Liste des programmations*/
 
@@ -26,7 +26,7 @@ class ProgrammationManager {
      *
      *  Destructeur de la classe ProgrammationManager
      */
-    ~ProgrammationManager(){programmations.clear(); freeInstance();}
+    virtual ~ProgrammationManager();
 
 
     /*!

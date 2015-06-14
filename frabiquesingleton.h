@@ -1,6 +1,7 @@
 #ifndef FRABIQUESINGLETON
 #define FRABIQUESINGLETON
 #include "Calendar.h"
+#include <list>
 
 
 //creation de la fabrique de singleton$
