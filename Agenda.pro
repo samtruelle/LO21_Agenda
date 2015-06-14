@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Agenda
 TEMPLATE = app
 
+CONFIG += rtti
 
 SOURCES += main.cpp\
         mainwindow.cpp \

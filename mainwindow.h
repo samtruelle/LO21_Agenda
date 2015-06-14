@@ -59,6 +59,22 @@ private:
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+<<<<<<< HEAD
+=======
+    void update();
+    void afficherEdt();
+    void ajouterTache();
+    void ajouterActivite();
+    void afficherEvt();
+    void displayProgrammation(const Programmation& p);
+    void afficherProjet();
+    void ajoutersousTache();
+    void afficherPrec();
+public slots:
+    //void on_AjouterTache_clicked();
+     //void on_AjouterActivite_clicked();
+     //void on_ProgrammeEvt_clicked();
+>>>>>>> origin/master
 
 
 

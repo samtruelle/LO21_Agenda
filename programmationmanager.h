@@ -5,7 +5,6 @@
 #include <QTextStream>
 #include <QXmlStreamWriter>
 #include <list>
-#include <vector>
 
 using namespace std;
 
@@ -26,14 +25,7 @@ class ProgrammationManager{
      *
      *  Constructeur de la classe ProgrammationManager
      */
-    ProgrammationManager();
-
-    /*!
-     *  \brief Destructeur
-     *
-     *  Destructeur de la classe ProgrammationManager
-     */
-    virtual ~ProgrammationManager();
+    ProgrammationManager():programmations(0){}
 
 
     /*!
@@ -73,6 +65,7 @@ public:
       */
       void freeInstance(){
          if(instance) delete instance;
+         instance = 0;
       }
 
       /*!
@@ -120,8 +113,9 @@ public:
        *
        *  \param  const QString& nom du fichier xml
        */
-
       void saveActivite(const QString& fichierbis);
+
+
 
 };
 

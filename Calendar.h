@@ -7,9 +7,22 @@
 
 using namespace std;
 
+/*! \class CalendarException
+ * \brief classe d'exception
+ *
+ */
 class CalendarException{
 public:
+
+    /*! \brief Constructeur
+     *
+     *  Constructeur public de la classe d'exception
+     *
+     *  \param QString& message de l'exception
+     */
     CalendarException(const QString& message):info(message){}
+
+
     QString getInfo() const { return info; }
 private:
     QString info;
@@ -342,12 +355,9 @@ public:
  *
  */
 class Evenement{
-  protected:
     unsigned int duree;/*!< Durée de l'évènement*/
 
     QString description;/*!< description de l'évènement*/
-
-
 
 public :
 
@@ -427,7 +437,7 @@ public:
  *
  *  La classe TacheUnitaire hérite de la classe Tache et de la classe Evenement.
  */
-class TacheUnitaire : public Tache,Evenement{
+class TacheUnitaire : public Tache, public Evenement{
 
     bool preemptable; /*!< Statut de la 'préemptivité' de la tâche*/
 

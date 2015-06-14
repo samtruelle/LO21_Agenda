@@ -84,15 +84,24 @@ void ProjetManager::saveProjet(const QString& fichier) {
         stream.writeAttribute("Date de disponibilite", ((i->getDisponibilite()).toString("yyyy-MM-dd")));
         stream.writeAttribute("dateEcheance", (i->getEcheance()).toString("yyyy-MM-dd"));
         // LOOP tâches  projet
+<<<<<<< HEAD
 std::list<Tache*>& t = (*it)->getTaches();
 for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
+=======
+        std::list<Tache*>& t = (*it)->getTaches();
+        for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
+>>>>>>> origin/master
         {
             stream.writeStartElement("tache");
             Tache* i2=*itt;
 
             if(dynamic_cast<TacheUnitaire*>(i2))
             {
+<<<<<<< HEAD
                  if(i2->isPreemptive())
+=======
+                 if(dynamic_cast<TacheUnitaire*>(i2)->ispreemptable())
+>>>>>>> origin/master
                         {stream.writeAttribute("type", "Tache Unitaire Preemptive");}
                  else
                         {stream.writeAttribute("type", "Tache Unitaire Non Preemptive");}

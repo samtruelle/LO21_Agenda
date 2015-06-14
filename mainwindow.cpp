@@ -6,6 +6,10 @@
 #include"Calendar.h"
 #include "projetmanager.h"
 #include"programmationmanager.h"
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "Calendar.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent), ui(new Ui::MainWindow),firstDay(0), firstDate(QDate(2015, 1, 1)),
@@ -22,11 +26,26 @@ QObject::connect(ui->AjouterTache, SIGNAL (clicked()), this, SLOT (ajouterTache(
 QObject::connect(ui->ProgrammeTache, SIGNAL (clicked()), this, SLOT (ProgrammerTache()));
 // Gestion Evenements
 QObject::connect(ui->AjouterActivite, SIGNAL (clicked()), this, SLOT (ajouterTache()));
-
-
-
-
 }
+void MainWindow::displayProgrammation(const Programmation &p)
+{
+    int date = p.getDate().dayOfWeek() -1;
+    int i=0;
+    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
+    {
+        ui->EmploiDuT->item(i, date)->setBackgroundColor(Qt::red);
+    }
+}
+
+void MainWindow::update()
+{
+    ProgrammationManager &p = ProgrammationManager::getInstance();
+    MainWindow::afficherEdt();
+    this->afficherEvt();
+}
+
+
+
 MainWindow::~MainWindow() {
     pm.freeInstance();
     delete ui;
@@ -89,6 +108,9 @@ void MainWindow::ajouterTache(){
         }
 else throw CalendarException("AJout Impossible");
     }
+}
+
+
 
 
 }
