@@ -37,13 +37,16 @@ class Projet {
          */
         Projet(const QString& id,const QDate& d, const QDate& e):
                 id(id),disponibilite(d), echeance(e){}
-        friend class ProjetManager;
-    public:
+
         /*!
          * \brief Destructeur
          *
          */
         ~Projet(){taches.clear();}
+        friend class ProjetManager;
+
+    public:
+
 
         /*!
          * \brief getId
@@ -76,6 +79,14 @@ class Projet {
         Tache* trouverTache(const QString& t);
 
         /*!
+         *  \brief trouve la Tache correspondant dans les tache de projet
+         *
+         *  \param t la tache à trouver
+         *  \return bool true si trouvée, false sinon
+         */
+        bool ExistTache(Tache* t);
+
+        /*!
          *  \brief Getter de la list de taches d'un projet
          *
          *  \return list<Tache*> La liste de tache du projet
@@ -87,7 +98,7 @@ class Projet {
          *
          *  \param t Pointeur vers la tache à ajouter
          */
-        void ajouterTache(Tache* t);
+        void ajouterTache(Tache *);
 
         /*!
          *  \brief suppression d'une tâche
@@ -107,8 +118,28 @@ class Projet {
          */
          template<typename T> T& getTache(const QString& t);
 
-        //void save(QXmlStreamWriter& stream) const;
-    };
+
+        /*!
+         *  \brief ajout d'une tacheUnitaire
+         *
+         *  \param t le titre de la tâche à créer
+         *  \param d date dispo de la tâche
+         *  \param d date d'écheance de la tâche
+         *  \param dur duree de la tache Unitaire
+         *  \param p preemptable
+         */
+        void Projet::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const bool p);
+
+
+        /*!
+         *  \brief ajout d'une tacheComposite
+         *
+         *  \param t le titre de la tâche à créer
+         *  \param d date dispo de la tâche
+         *  \param d date d'écheance de la tâche
+         */
+        void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
+};
 
 
 
@@ -179,14 +210,16 @@ class Tache {
       *  operateur= en privé pour éviter la recopie
       */
 	Tache& operator=(const Tache&);
+
+    /*!
+     *  \brief Destructeur
+     *
+     *  Destructeur virtuel de la classe Tache
+     */
+    virtual ~Tache(){}
     friend class Projet;
 public:   
-    /*!
-        *  \brief Destructeur
-        *
-        *  Destructeur virtuel de la classe Tache
-        */
-    virtual ~Tache(){}
+
 
     /*!
      *  \brief Getter de titre
@@ -284,7 +317,13 @@ public:
      */
     void suppPrecedente(Tache* t);
 
+    bool operator ==(Tache* t1){
+        return(titre==t1->getId());
+    }
 
+    bool operator ==(const Tache* t1){
+        return(titre==t1->getId());
+    }
 
 
     /*!
@@ -292,7 +331,7 @@ public:
      *
      *  Methode virtuelle pure permettant de rendre la classe abstraite.
      */
-    virtual void DisplayTache() const = 0;
+    //virtual void DisplayTache() const = 0;
 };
 
 
@@ -301,6 +340,7 @@ public:
  *
  */
 class Evenement{
+  protected:
     unsigned int duree;/*!< Durée de l'évènement*/
 
 public :
@@ -385,7 +425,7 @@ class TacheUnitaire : public Tache,Evenement{
         if(dur > 12*60)
             throw CalendarException("Tache preemptable trop longue (12h max)");
     }
-        ;
+    friend class Projet;
 public:
 
     /*!
@@ -406,6 +446,7 @@ public:
      */
     void setpreemptable(bool b) { preemptable=b; }
 
+    //void DisplayTache(std::ostream& f= std::cout);
 };
 
 
@@ -429,6 +470,7 @@ class TacheComposite : public Tache{
      */
     TacheComposite(const QString& t, const QDate& d, const QDate& e):
         Tache(t,d,e),sous_taches(0){}
+    friend class Projet;
 public :
 
     /*!
@@ -478,44 +520,14 @@ public :
      *  \return une référenc vers une list de toutes les sous tâches de la tâche
      */
     list<Tache*>& getSousTaches() { return sous_taches; }
+
+    //void DisplayTache(std::ostream& f= std::cout);
 };
 
 QTextStream& operator<<(QTextStream& f, const Tache& t);
 
 
-class TacheManager {
 
-	Tache** taches;
-	unsigned int nb;
-	unsigned int nbMax;
-	void addItem(Tache* t);
-
-    QString file;
-    TacheManager():taches(0),nb(0),nbMax(0){}
-	~TacheManager();
-    TacheManager(const TacheManager& tm);
-    TacheManager& operator=(const TacheManager& tm);
-	struct Handler{
-		TacheManager* instance;
-		Handler():instance(0){}
-		// destructeur appelé à la fin du programme
-		~Handler(){ if (instance) delete instance; }
-	};
-	static Handler handler;
-public:
-    Tache& ajouterTache(Tache* t);
-    void TacheManager::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p);
-    void TacheManager::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
-     Tache& getTache(const QString& id);
-    bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
-    const Tache& getTache(const QString& code) const;
-    void load(const QString& f);
-    void save(const QString& f);
-    Tache* trouverTache(const QString& t) const;
-	static TacheManager& getInstance();
-	static void libererInstance();
-
-};
 
 
 
@@ -540,6 +552,14 @@ class Programmation {
      *  \param _e la date d'échéance de la tâche à créer
      */
     Programmation(const Evenement* e, const QDate& d, const QTime& h):eve(e), date(d), horaire(h){}
+
+    /*!
+
+     *  \brief Destructeur
+     *
+     *  Destructeur de la classe ProgammationManager
+     */
+    ~ProjetManager(){projets.clear(); freeInstance();}
 
     /*!
       *  \brief Constructeur par recopie

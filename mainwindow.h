@@ -66,7 +66,5 @@ public slots:
 <<<<<<< HEAD
 #endif
 */
-=======
+// MAINWINDOW_H
 
-#endif // MAINWINDOW_H
->>>>>>> origin/master

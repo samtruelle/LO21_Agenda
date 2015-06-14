@@ -17,19 +17,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     Calendar.cpp \
     timing.cpp \
-    projetmanager.cpp
+    projetmanager.cpp \
+    tachemanager.cpp
 
 HEADERS  += mainwindow.h \
     Calendar.h \
     timing.h \
     frabiquesingleton.h \
-<<<<<<< HEAD
     projetmanager.h \
     fenetre.h \
     tachemanager.h
-=======
     projetmanager.h
->>>>>>> origin/master
 
 FORMS    += \
     mainwindow.ui

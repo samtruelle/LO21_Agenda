@@ -55,7 +55,7 @@ template<typename T,typename U>
 {
     if (FabriqueSingleton::instance == 0)
     {
-        FabriqueSingleton::instance = 1;/*CreateInstance()*/;
+        FabriqueSingleton::instance = new T();
     }
     return *(FabriqueSingleton::instance);
 }
@@ -73,11 +73,11 @@ FabriqueSingleton<T,U>::~FabriqueSingleton()
 
 
 /*template<typename T,typename U>
-T* FabriqueSingleton<T,U>::CreateInstance()
+inline T* FabriqueSingleton<T,U>::CreateInstance()
 {
     return new T();
-}*/
-
+}
+*/
 
 template<typename T,typename U>
 bool FabriqueSingleton<T,U>::existsItem(const QString& id){
@@ -117,10 +117,14 @@ void FabriqueSingleton<T,U>::suppItem(const QString& id){
 }
 
 
-class ProjetManager : public FabriqueSingleton<ProjetManager,Projet>{
-public :
-    ProjetManager();
-}
+/*class ProjetManager : public FabriqueSingleton<ProjetManager,Projet>{
 
+
+public :
+
+    ProjetManager();
+    ~ProjetManager();
+};
+*/
 #endif // FRABIQUESINGLETON
 
