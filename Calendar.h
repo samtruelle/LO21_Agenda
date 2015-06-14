@@ -128,7 +128,7 @@ class Projet {
          *  \param dur duree de la tache Unitaire
          *  \param p preemptable
          */
-        void Projet::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const bool p);
+        void Projet::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const QString& l, const bool p);
 
 
         /*!
@@ -343,6 +343,10 @@ class Evenement{
   protected:
     unsigned int duree;/*!< Durée de l'évènement*/
 
+    QString description;/*!< description de l'évènement*/
+
+
+
 public :
 
     /*!
@@ -352,7 +356,7 @@ public :
      *
      *  \param _dur la durée de l'evenement a creer
      */
-    Evenement(const unsigned int& dur):Evenement(dur){}
+    Evenement(const unsigned int& dur, const QString& d):duree(dur),description(d){}
 
     /*!
      *  \brief Getter de duree
@@ -363,6 +367,15 @@ public :
      */
     unsigned int getDuree() const { return duree; }
     void setDuree(const unsigned int& d) { duree=d; }
+
+    /*!
+     *  \brief Getter de description
+     *
+     *  Methode qui permet de récupérer la description d'une activite.
+     *
+     *  \return un QString
+     */
+    QString getDescription() const { return description; }
 
     bool estProgramme();
 };
@@ -375,7 +388,7 @@ public :
  */
 class Activite : public Evenement{
 
-    QString description;/*!< Description de l'activite*/
+    QString lieu;
 
 public:
     /*!
@@ -386,17 +399,19 @@ public:
      *  \param _dur la durée de l'activite a creer
      *  \param _d la description de l'activite a creer
      */
-    Activite(const unsigned int& dur,const QString& d):Evenement(dur),description(d){}
+    Activite(const unsigned int& dur,const QString& d,const QString& l):Evenement(dur,d),lieu(l){}
+
+
 
     /*!
-     *  \brief Getter de description
+     *  \brief Getter de lieu
      *
-     *  Methode qui permet de récupérer la description d'une activite.
+     *  Methode qui permet de récupérer le lieu d'une activite.
      *
      *  \return un QString
      */
-    QString getDescription() const { return description; }
-    void setDescription(const QString& d) { description=d; }
+    QString getLieu(){return lieu;}
+    void setLieu(const QString& l) { lieu=l; }
 };
 
 /*! \class TacheUnitaire
@@ -420,8 +435,8 @@ class TacheUnitaire : public Tache,Evenement{
      *  \param _dur la durée de la tâche à créer
      *  \param _p le statut de la preemptivité de la tâche
      */
-    TacheUnitaire(const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const bool p):
-        Tache(t,d,e),Evenement(dur),preemptable(p){
+    TacheUnitaire(const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const QString& des, const bool p):
+        Tache(t,d,e),Evenement(dur,des),preemptable(p){
         if(dur > 12*60)
             throw CalendarException("Tache preemptable trop longue (12h max)");
     }
@@ -529,8 +544,6 @@ QTextStream& operator<<(QTextStream& f, const Tache& t);
 
 
 
-
-
 /*! \class Programmation
  * \brief classe représentant la programmation d'un evenement a une date un horaire précis
  *
@@ -554,14 +567,6 @@ class Programmation {
     Programmation(const Evenement* e, const QDate& d, const QTime& h):eve(e), date(d), horaire(h){}
 
     /*!
-
-     *  \brief Destructeur
-     *
-     *  Destructeur de la classe ProgammationManager
-     */
-    ~ProjetManager(){projets.clear(); freeInstance();}
-
-    /*!
       *  \brief Constructeur par recopie
       *
       *  Constructeur par recopie privé de la classe programmation
@@ -575,6 +580,8 @@ class Programmation {
       */
     Programmation& operator=(const Programmation&);
 
+    friend class ProgrammationManager;
+
 public:
 
 
@@ -583,7 +590,7 @@ public:
      *
      *  \return Evenement& l'evenement programmé
      */
-    const Evenement& getProg() const { return *eve; }
+    const Evenement* getEvenement(){ return const_cast<const Evenement*>(eve); }
 
 
     /*!
@@ -603,21 +610,6 @@ public:
 };
 
 
-class ProgrammationManager {
-
-
-	Programmation** programmations;
-
-
-	void addItem(Programmation* t);
-    Programmation* trouverProgrammation(const Evenement& e) const;
-public:
-	ProgrammationManager();
-	~ProgrammationManager();
-	ProgrammationManager(const ProgrammationManager& um);
-	ProgrammationManager& operator=(const ProgrammationManager& um);
-    void ajouterProgrammation(const Evenement& e, const QDate& d, const QTime& h);
-};
 
 
 #endif
