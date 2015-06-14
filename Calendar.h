@@ -128,7 +128,7 @@ class Projet {
          *  \param dur duree de la tache Unitaire
          *  \param p preemptable
          */
-        void Projet::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const QString& l, const bool p);
+        void ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const QString& l, const bool p);
 
 
         /*!
@@ -138,7 +138,7 @@ class Projet {
          *  \param d date dispo de la tâche
          *  \param d date d'écheance de la tâche
          */
-        void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
+        void ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
 };
 
 

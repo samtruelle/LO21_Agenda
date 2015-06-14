@@ -81,7 +81,7 @@ inline T* FabriqueSingleton<T,U>::CreateInstance()
 
 template<typename T,typename U>
 bool FabriqueSingleton<T,U>::existsItem(const QString& id){
-    for(list<U*>::iterator it = items.begin(); it!=items.end;++it){
+    for(list<U*>::iterator it = items.begin(); it!=items.end();++it){
         if((*it)->getId() == id)
             return true;
     }

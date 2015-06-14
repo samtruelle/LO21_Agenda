@@ -125,8 +125,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *  \param QString fichier nom du fichier
      */
 
-    void saveProjet(const QString fichier);
-
+void saveProjet(const QString& fichier);
 };
 
 #endif // PROJETMANAGER

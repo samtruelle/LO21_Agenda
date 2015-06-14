@@ -50,10 +50,12 @@ void ProgrammationManager::saveActivite(const QString& fichierbis){
     ProgrammationManager& Progra = ProgrammationManager::getInstance();
     std::list<Programmation*> itprog = Progra.getProgrammations();
     // LOOP Programmation.
-    for(std::list<>::iterator it = itprog.begin(); it != itprog.end(); it++) {
+    for(std::list<Programmation*>::iterator it = itprog.begin(); it != itprog.end(); it++) {
         stream.writeStartElement("Activite");
            Programmation* p= *it;
-           Evenement* e=p->getEvenement();
+               const Evenement* ev=p->getEvenement();
+               Evenement* e = const_cast<Evenement*> (ev);
+
         if(dynamic_cast<Activite*>(e)) {
             stream.writeAttribute("type", "Activite");
             stream.writeTextElement("Description", ((Activite*)e->getDescription()));
