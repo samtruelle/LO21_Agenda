@@ -27,6 +27,8 @@ void ProjetManager::ajouterProjet(const QString& id, const QDate& dispo, const Q
 
     if(existsProjet(id))
         throw CalendarException("ProjetManager::ajouterProjet Un projet avec cet id existe déjà");
+    if(dispo>echeance)
+        throw CalendarException("Date de disponibilité du projet ultérieur à la date d'échéance");
 
     Projet* nProjet = new Projet(id, dispo, echeance);
     projets.push_back(nProjet);
@@ -51,3 +53,4 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
     throw CalendarException("ProjetManager::getProjetByTache : pas de projet correspondant");
 }
 
+ProjetManager::~ProjetManager(){}

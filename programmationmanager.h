@@ -82,7 +82,7 @@ public:
        *
        *  \param Evenement& Evenement dont il faut trouver la programmation
        */
-      void ajouterProgrammation(const Evenement* e, const QDate& d, const QTime& h);
+      void ajouterProgrammation(Evenement* e, const QDate& d, const QTime& h);
 
 
       /*!

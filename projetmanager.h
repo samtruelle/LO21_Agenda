@@ -15,21 +15,13 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
 
     list<Projet*> projets; /*!< Liste des projets*/
 
+
     /*!
      *  \brief Constructeur
      *
      *  Constructeur de la classe TacheManager
      */
     ProjetManager();
-
-
-    /*!
-
-     *  \brief Destructeur
-     *
-     *  Destructeur de la classe ProjetManager
-     */
-    ~ProjetManager(){projets.clear(); freeInstance();}
 
     /*!
      *  \brief Constructeur par recopie
@@ -43,10 +35,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *
      *  Operateur d'affectation de la classe ProjetManager
      */
-
     ProjetManager& operator=(const Projet& t);
-
-
 
    public:
 
@@ -72,6 +61,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      */
        void freeInstance() {
         if(instanceUnique) delete instanceUnique;
+        instanceUnique = 0;
     }
 
    /*!
@@ -116,6 +106,13 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *  \return bool vrai si il existe, faux sinon
      */
     bool existsProjet(const QString& id);
+
+    /*!
+     *  \brief Destructeur
+     *
+     *  Destructeur de la classe ProjetManager
+     */
+    virtual ~ProjetManager();
 
 };
 
