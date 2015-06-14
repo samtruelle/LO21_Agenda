@@ -2,6 +2,7 @@
 #define PROJETMANAGER
 #include "frabiquesingleton.h"
 #include <list>
+#include "Calendar.h"
 
 using namespace std;
 
@@ -11,33 +12,25 @@ using namespace std;
  *
  *  La classe gère la création, la suppression et le stockage des différents projets.
  */
-class ProjetManager /*: public FrabriqueSingleton*/{
-private :
-    static ProjetManager* instanceUnique;/*!< Instance unique du singleton*/
-    list<Projet*> projets; /*!< Liste des projets*/
-    //unsigned int nb;
-    //unsigned int nbMax;
+//class ProjetManager : public FabriqueSingleton<ProjetManager,Projet>{
+    //static ProjetManager* instanceUnique;/*!< Instance unique du singleton*/
+    //list<Projet*> projets; /*!< Liste des projets*/
 
-    /*!
-          *  \brief Constructeur
-          *
-          *  Constructeur de la classe ProjetManager
-          */
-    ProjetManager();
+
 
     /*!
      *  \brief Destructeur
      *
      *  Destructeur de la classe ProjetManager
      */
-    ~ProjetManager(){for(unsigned int i=0; i<nb; i++) delete projets[i]; delete[] projets;}
+    //~ProjetManager(){projets.clear();}
 
     /*!
           *  \brief Constructeur par recopie
           *
           *  Constructeur par recopie de la classe ProjetManager
           */
-    ProjetManager(const Projet& um);
+   // ProjetManager(const Projet& t);
 
     /*!
           *  \brief Operator =
@@ -45,7 +38,7 @@ private :
           *  Operateur d'affectation de la classe ProjetManager
           */
 
-    ProjetManager& operator=(const Projet& um);
+  //  ProjetManager& operator=(const Projet& t);
 
     /*struct Handler{
         ProjetManager* instance;
@@ -57,7 +50,14 @@ private :
     string genererId();
 */
 
-   public:
+   //public:
+
+    /*!
+          *  \brief Constructeur
+          *
+          *  Constructeur de la classe ProjetManager
+          */
+    //ProjetManager();
 
     /*!
      *  \brief Récupération de l'instance singleton de la classe ProjetManager
@@ -67,17 +67,21 @@ private :
      *
      *  \return une référence sur l'instance de la classe ProjetManager
      */
+    /*template<ProjetManager>
     static ProjetManager& getInstance() {
         if(!instanceUnique) instanceUnique = new ProjetManager();
             return *instanceUnique;
         }
+
+    */
+
     /*!
      *  \brief Suppression de l'instance de la classe ProjetManager
      *
      *  Methode qui permet de liberer l'instance de la classe ProjetManager.
      */
-    void libereInstance() {
-        if(instanceUnique) delete instanceUnique;
+    /*   void libereInstance() {
+        //if(instanceUnique) delete instanceUnique;
     }
 
     Projet& getProjetByTache(const Tache& t);
@@ -88,7 +92,7 @@ private :
     Projet& getProjet(const QString& id);
 
     bool existsProjet(const QString& id);
-
+*/
 
 /*
     class Iterator {
@@ -140,7 +144,7 @@ private :
         return ConstIterator(projets,nb);
     }
     */
-};
+//};
 
 #endif // PROJETMANAGER
 

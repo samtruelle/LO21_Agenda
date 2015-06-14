@@ -24,7 +24,8 @@ HEADERS  += mainwindow.h \
     timing.h \
     frabiquesingleton.h \
     projetmanager.h \
-    fenetre.h
+    fenetre.h \
+    tachemanager.h
 
 FORMS    += \
     mainwindow.ui

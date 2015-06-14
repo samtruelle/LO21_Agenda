@@ -36,14 +36,14 @@ class Projet {
          *  \param e la date d'échéance du projet
          */
         Projet(const QString& id,const QDate& d, const QDate& e):
-                id(id),nb(0),nbMax(0),disponibilite(d), echeance(e){}
+                id(id),disponibilite(d), echeance(e){}
         friend class ProjetManager;
     public:
         /*!
          * \brief Destructeur
          *
          */
-        ~Projet();
+        ~Projet(){taches.clear();}
 
         /*!
          * \brief getId
@@ -65,12 +65,47 @@ class Projet {
         QDate getEcheance() const { return echeance; }
 
         void setDatesDisponibiliteEcheance(const QDate& disp, const QDate& e);
-        Tache* trouverTache(const QString& t) const;
 
-        //ListTachesConst getTaches() const;
-        //void addTaches(const ListTaches &t);
-        void addTache(const Tache* t);
-        //void suppTache(const Tache* t);
+
+        /*!
+         *  \brief trouve la Tache lié au projet au titre correspondant
+         *
+         *  \param t le titre de la tache à trouver
+         *  \return Tache* Pointeur sur la tache recherché ou 0
+         */
+        Tache* trouverTache(const QString& t);
+
+        /*!
+         *  \brief Getter de la list de taches d'un projet
+         *
+         *  \return list<Tache*> La liste de tache du projet
+         */
+        list<Tache*>& getTaches(){return taches;}
+
+        /*!
+         *  \brief ajout d'une tâche
+         *
+         *  \param t Pointeur vers la tache à ajouter
+         */
+        void ajouterTache(Tache* t);
+
+        /*!
+         *  \brief suppression d'une tâche
+         *
+         *  \param t le titre de la tâche à supprimer
+         */
+        void suppTache(const QString &t);
+
+        /*!
+         *  \brief Récupération d'une tâche
+         *
+         *  Template Methode qui permet de récupérer une référence sur une tâche voulue.
+         *  La tâche peut être de tout type de tâche.
+         *
+         *  \param nomTache le nom de la tâche à récupérer
+         *  \return une référence sur la tâche demandée
+         */
+         template<typename T> T& getTache(const QString& t);
 
         //void save(QXmlStreamWriter& stream) const;
     };
@@ -160,8 +195,8 @@ public:
      *
      *  \return un QString
      */
-    QString getTitre() const { return titre; }
-    void setTitre(const QString& str);
+    QString getId() const { return titre; }
+    void setId(const QString& str);
 
     /*!
      *  \brief Getter de dispo
@@ -266,7 +301,7 @@ public:
  *
  */
 class Evenement{
-    Duree duree;/*!< Durée de l'évènement*/
+    unsigned int duree;/*!< Durée de l'évènement*/
 
 public :
 
@@ -277,7 +312,7 @@ public :
      *
      *  \param _dur la durée de l'evenement a creer
      */
-    Evenement(const Duree& dur):Evenement(dur){}
+    Evenement(const unsigned int& dur):Evenement(dur){}
 
     /*!
      *  \brief Getter de duree
@@ -286,8 +321,8 @@ public :
      *
      *  \return une Duree
      */
-    Duree getDuree() const { return duree; }
-    void setDuree(const Duree& d) { duree=d; }
+    unsigned int getDuree() const { return duree; }
+    void setDuree(const unsigned int& d) { duree=d; }
 
     bool estProgramme();
 };
@@ -311,7 +346,7 @@ public:
      *  \param _dur la durée de l'activite a creer
      *  \param _d la description de l'activite a creer
      */
-    Activite(const Duree& dur,const QString& d):Evenement(dur),description(d){}
+    Activite(const unsigned int& dur,const QString& d):Evenement(dur),description(d){}
 
     /*!
      *  \brief Getter de description
@@ -345,8 +380,12 @@ class TacheUnitaire : public Tache,Evenement{
      *  \param _dur la durée de la tâche à créer
      *  \param _p le statut de la preemptivité de la tâche
      */
-    TacheUnitaire( const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p):
-        Tache(t,d,e),Evenement(dur),preemptable(p){}
+    TacheUnitaire(const QString& t, const QDate& d, const QDate& e, const unsigned int& dur, const bool p):
+        Tache(t,d,e),Evenement(dur),preemptable(p){
+        if(dur > 12*60)
+            throw CalendarException("Tache preemptable trop longue (12h max)");
+    }
+        ;
 public:
 
     /*!
@@ -370,22 +409,46 @@ public:
 };
 
 
-
+/*! \class TacheComposite
+ * \brief classe représentant une tache composite, composée de taches
+ *
+ *  La classe Tache composite hérite de la classe Tache.
+ */
 class TacheComposite : public Tache{
-    list<Tache*> sous_taches;
+
+    list<Tache*> sous_taches;/*!< Description de l'activite*/
+
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur private de la classe TacheComposite
+     *
+     *  \param _t le titre de la tâche à créer
+     *  \param _d la date de disponibilité de la tâche à créer
+     *  \param _e la date d'échéance de la tâche à créer
+     */
     TacheComposite(const QString& t, const QDate& d, const QDate& e):
         Tache(t,d,e),sous_taches(0){}
 public :
 
-    virtual ~TacheComposite() {}
     /*!
-         *  \brief Ajout d'une sous tâche
-         *
-         *  Methode qui permet d'ajouter une sous tâche existante à la tâche composite.
-         *
-         *  \param t pointeur vers la tâche à ajouter
-         */
+     * \brief ~TacheComposite
+     *
+     * Destructuer virtuel de Tache Composite
+     */
+    virtual ~TacheComposite() {}
+
+
+    /*!
+     *  \brief Ajout d'une sous tâche
+     *
+     *  Methode qui permet d'ajouter une sous tâche existante à la tâche composite.
+     *
+     *  \param t pointeur vers la tâche à ajouter
+     */
     void addSousTache(Tache* t);
+
+
     /*!
      *  \brief Suppression d'une sous tâche
      *
@@ -394,6 +457,8 @@ public :
      *  \param t le titre de la sous tâche à supprimer
      */
     void suppSousTache(const QString& t);
+
+
     /*!
      *  \brief Récupération d'une sous tache de la tâche composite
      *
@@ -402,7 +467,9 @@ public :
      *  \param t le titre de la sous tâche à récupérer
      *  \return une référence sur la tâche recherchée
      */
-    Tache& getTacheComposante(const QString& t);
+    Tache* getTacheComposante(const QString& t);
+
+
     /*!
      *  \brief Getter des sous tâches de la tâche.
      *
@@ -415,158 +482,78 @@ public :
 
 QTextStream& operator<<(QTextStream& f, const Tache& t);
 
-class TacheManager {
-
-	Tache** taches;
-	unsigned int nb;
-	unsigned int nbMax;
-	void addItem(Tache* t);
-
-    QString file;
-    TacheManager():taches(0),nb(0),nbMax(0){}
-	~TacheManager();
-    TacheManager(const TacheManager& tm);
-    TacheManager& operator=(const TacheManager& tm);
-	struct Handler{
-		TacheManager* instance;
-		Handler():instance(0){}
-		// destructeur appelé à la fin du programme
-		~Handler(){ if (instance) delete instance; }
-	};
-	static Handler handler;
-public:
-    Tache& ajouterTache(const QString& id, const QString& t, const Duree& dur, const QDate& dispo, const QDate& deadline, bool preempt=false);
-    Tache& getTache(const QString& id);
-    bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
-    const Tache& getTache(const QString& code) const;
-    void load(const QString& f);
-    void save(const QString& f);
-    Tache* trouverTache(const QString& t) const;
-	static TacheManager& getInstance();
-	static void libererInstance();
-
-	class Iterator {
-		friend class TacheManager;
-		Tache** currentTache;
-		unsigned int nbRemain;
-		Iterator(Tache** u, unsigned nb):currentTache(u),nbRemain(nb){}
-	public:
-		Iterator():nbRemain(0),currentTache(0){}
-		bool isDone() const { return nbRemain==0; }
-		void next() { 
-			if (isDone()) 
-				throw CalendarException("error, next on an iterator which is done"); 
-			nbRemain--; 
-			currentTache++; 
-		}
-		Tache& current() const { 
-			if (isDone()) 
-				throw CalendarException("error, indirection on an iterator which is done"); 
-			return **currentTache; 
-		}
-	};
-	Iterator getIterator() { 
-		return Iterator(taches,nb); 
-	}
-
-	class ConstIterator {
-		friend class TacheManager;
-		Tache** currentTache;
-		unsigned int nbRemain;
-		ConstIterator(Tache** u, unsigned nb):currentTache(u),nbRemain(nb){}
-	public:
-		ConstIterator():nbRemain(0),currentTache(0){}
-		bool isDone() const { return nbRemain==0; }
-		void next() { 
-			if (isDone()) 
-				throw CalendarException("error, next on an iterator which is done"); 
-			nbRemain--; 
-			currentTache++; 
-		}
-		const Tache& current() const { 
-			if (isDone()) 
-				throw CalendarException("error, indirection on an iterator which is done"); 
-			return **currentTache; 
-		}
-	};
-	ConstIterator getIterator() const{ 
-		return ConstIterator(taches,nb); 
-	}
-
-	class iterator {
-		Tache** current;
-		iterator(Tache** u):current(u){}
-		friend class TacheManager;
-	public:
-        iterator():current(0){}
-		Tache& operator*() const { return **current; }
-		bool operator!=(iterator it) const { return current!=it.current; }
-		iterator& operator++(){ ++current; return *this; }
-	};
-	iterator begin() { return iterator(taches); }
-	iterator end() { return iterator(taches+nb); }
-
-	class const_iterator {
-		Tache** current;
-		const_iterator(Tache** u):current(u){}
-		friend class TacheManager;
-	public:
-        const_iterator():current(0){}
-		Tache& operator*() const { return **current; }
-		bool operator!=(const_iterator it) const { return current!=it.current; }
-		const_iterator& operator++(){ ++current; return *this; }
-	};
-	const_iterator begin() const { return const_iterator(taches); }
-	const_iterator end() const { return const_iterator(taches+nb); }
-
-	class DisponibiliteFilterIterator {
-		friend class TacheManager;
-		Tache** currentTache;
-		unsigned int nbRemain;
-        QDate dispo;
-        DisponibiliteFilterIterator(Tache** u, unsigned nb, const QDate& d):currentTache(u),nbRemain(nb),dispo(d){
-            while(nbRemain>0 && dispo<(*currentTache)->getDateDispo()){
-				nbRemain--; currentTache++;
-			}
-		}
-	public:
-		DisponibiliteFilterIterator():nbRemain(0),currentTache(0){}
-		bool isDone() const { return nbRemain==0; }
-		void next() { 
-			if (isDone()) 
-				throw CalendarException("error, next on an iterator which is done"); 
-			do {
-				nbRemain--; currentTache++;
-            }while(nbRemain>0 && dispo<(*currentTache)->getDateDispo());
-		}
-		Tache& current() const { 
-			if (isDone()) 
-				throw CalendarException("error, indirection on an iterator which is done"); 
-			return **currentTache; 
-		}
-	};
-    DisponibiliteFilterIterator getDisponibiliteFilterIterator(const QDate& d) {
-		return DisponibiliteFilterIterator(taches,nb,d); 
-	}
-};
 
 
+/*! \class Programmation
+ * \brief classe représentant la programmation d'un evenement a une date un horaire précis
+ *
+ *  La classe Tache composite hérite de la classe Tache.
+ */
 class Programmation {
-    const Evenement* eve;
-    QDate date;
-    QTime horaire;
+
+    const Evenement* eve;/*!< Evenement programmé*/
+    QDate date;/*!< Date de programmation*/
+    QTime horaire;/*!< Horaire de programmation*/
+
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur privé d'une programmation
+     *
+     *  \param _t le titre de la tâche à créer
+     *  \param _d la date de disponibilité de la tâche à créer
+     *  \param _e la date d'échéance de la tâche à créer
+     */
+    Programmation(const Evenement* e, const QDate& d, const QTime& h):eve(e), date(d), horaire(h){}
+
+    /*!
+      *  \brief Constructeur par recopie
+      *
+      *  Constructeur par recopie privé de la classe programmation
+      */
+    Programmation(const Programmation& p);
+
+    /*!
+      *  \brief operateur=
+      *
+      *  operateur d'affectation en privé pour éviter la recopie
+      */
+    Programmation& operator=(const Programmation&);
+
 public:
-    Programmation(const Evenement& e, const QDate& d, const QTime& h):eve(&e), date(d), horaire(h){}
+
+
+    /*!
+     *  \brief Getter de l'evenement programmé
+     *
+     *  \return Evenement& l'evenement programmé
+     */
     const Evenement& getProg() const { return *eve; }
+
+
+    /*!
+     *  \brief Getter de la date de programmation
+     *
+     *  \return QDate La date de programmation
+     */
     QDate getDate() const { return date; }
+
+
+    /*!
+     *  \brief Getter de l'horaire de programmation
+     *
+     *  \return QTime l'horaire de programmation
+     */
     QTime getHoraire() const { return horaire; }
 };
 
+
 class ProgrammationManager {
 
+
 	Programmation** programmations;
-	unsigned int nb;
-	unsigned int nbMax;
+
+
 	void addItem(Programmation* t);
     Programmation* trouverProgrammation(const Evenement& e) const;
 public:
@@ -576,9 +563,6 @@ public:
 	ProgrammationManager& operator=(const ProgrammationManager& um);
     void ajouterProgrammation(const Evenement& e, const QDate& d, const QTime& h);
 };
-
-
-
 
 
 #endif

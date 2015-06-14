@@ -13,6 +13,7 @@ Projet& ProjetManager::getProjet(const QString& id) {
     return 0;
 }
 
+/*
 bool ProjetManager::existsProjet(const QString& id){
     for(list<Projet*>::iterator it = projets.begin(); it != projets.end(); it++) {
         if((*it)->getId() == id) {
@@ -31,7 +32,7 @@ void ProjetManager::ajouterProjet(const QString& id, const QDate& dispo, const Q
     Projet* nProjet = new Projet(id, dispo, echeance);
     projets.push_back(nProjet);
 }
-
+*/
 void ProjetManager::suppProjet(const QString& id) {
 
     if(!getProjet(id))

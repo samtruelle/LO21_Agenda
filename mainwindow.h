@@ -1,3 +1,4 @@
+/*
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -60,3 +61,5 @@ public slots:
     void on_ajoutProg_clicked();
 
 };
+#endif
+*/
