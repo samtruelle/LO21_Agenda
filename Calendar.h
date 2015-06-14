@@ -483,6 +483,41 @@ public :
 QTextStream& operator<<(QTextStream& f, const Tache& t);
 
 
+class TacheManager {
+
+	Tache** taches;
+	unsigned int nb;
+	unsigned int nbMax;
+	void addItem(Tache* t);
+
+    QString file;
+    TacheManager():taches(0),nb(0),nbMax(0){}
+	~TacheManager();
+    TacheManager(const TacheManager& tm);
+    TacheManager& operator=(const TacheManager& tm);
+	struct Handler{
+		TacheManager* instance;
+		Handler():instance(0){}
+		// destructeur appelé à la fin du programme
+		~Handler(){ if (instance) delete instance; }
+	};
+	static Handler handler;
+public:
+    Tache& ajouterTache(Tache* t);
+    void TacheManager::ajoutTacheUni (const QString& t, const QDate& d, const QDate& e, const Duree& dur, const bool p);
+    void TacheManager::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
+     Tache& getTache(const QString& id);
+    bool isTacheExistante(const QString& id) const { return trouverTache(id)!=0; }
+    const Tache& getTache(const QString& code) const;
+    void load(const QString& f);
+    void save(const QString& f);
+    Tache* trouverTache(const QString& t) const;
+	static TacheManager& getInstance();
+	static void libererInstance();
+
+};
+
+
 
 /*! \class Programmation
  * \brief classe représentant la programmation d'un evenement a une date un horaire précis

@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-/*
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "Calendar.h"
-
-=======
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Calendar.h"
 )
->>>>>>> origin/master
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,8 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     ui->EmploiDate->setDate(QDate::currentDate());
 
-<<<<<<< HEAD
-=======
 }
 void MainWindow::displayProgrammation(const Programmation &p)
 {
@@ -62,44 +52,26 @@ void MainWindow::on_AjouterTache_clicked(){
     TacheManager &m = TacheManager::getInstance();
 
     if(ui->Preempt->isChecked()){
-    m.(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),ui->DureeActivite->value());
+    m.ajoutTacheUni(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),ui->DureeActivite->value());
     }
     else if (ui->composite->isChecked()){
-        m.(ui->idTache->text(),ui->titre->text(), ui->dispoTache->date(),ui->echeanceTache->date());
+        m.ajoutTacheComp(ui->idTache->text(),ui->titre->text(), ui->dispoTache->date(),ui->echeanceTache->date());
 
     }
-    Tache t  =m.getTache(ui->idTache->text());
-    ui->Retour->appendPlainText(t.afficherTache());
-
+  
 
     }catch(CalendarException e){
-
+//Prevoir une fenetre de retour de commandes 
 ui->Retour->appendPlainText("Erreur ajout tache ");
     }
 
->>>>>>> origin/master
 }
-
 
 MainWindow::~MainWindow()
 {
     delete ui;
 
-<<<<<<< HEAD
 }
-
-void MainWindow::afficherProgrammation(Programmation &p)
-{
-    int date = p.getDate().dayOfWeek();
-    int i=0;
-    ui->Retour_2->appendPlainText( p.getHoraire().toString("h"));
-    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
-    {
-        ui->Retour_2->appendPlainText("ghggh");
-    }
+void MainWindow::on_AjouterActivite_clicked() {
+    try{
 }
-*/
-=======
-}
-
->>>>>>> origin/master

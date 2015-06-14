@@ -14,476 +14,215 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTableWidget" name="EmploiDuT">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>250</y>
-      <width>241</width>
+      <x>750</x>
+      <y>0</y>
+      <width>161</width>
       <height>361</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>1010</x>
-      <y>0</y>
-      <width>231</width>
-      <height>443</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_14">
-       <property name="text">
-        <string>Programmer un événement</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>Id</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="idEvt">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>titre</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="titreEvt">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Date Début</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="dateEvt">
-       <property name="dateTime">
-        <datetime>
-         <hour>0</hour>
-         <minute>0</minute>
-         <second>0</second>
-         <year>2015</year>
-         <month>6</month>
-         <day>1</day>
-        </datetime>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_12">
-       <property name="text">
-        <string>Date fin ( si plusieurs jours)</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="dateFinEvtPj">
-       <property name="dateTime">
-        <datetime>
-         <hour>0</hour>
-         <minute>0</minute>
-         <second>0</second>
-         <year>2015</year>
-         <month>6</month>
-         <day>1</day>
-        </datetime>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="AjouterEvt">
-       <property name="text">
-        <string>Ajouter l'évènement</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Entrez l'id de la tache </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="idTacheAfficher">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="AfficherTache">
-       <property name="text">
-        <string>Afficher Tache</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPlainTextEdit" name="Retour_2"/>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QCalendarWidget" name="calendarWidget">
-    <property name="geometry">
-     <rect>
-      <x>1</x>
-      <y>39</y>
-      <width>256</width>
-      <height>183</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_8">
-    <property name="geometry">
-     <rect>
-      <x>1</x>
-      <y>1</y>
-      <width>214</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>                                Aperçu de votre Agenda</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::PlainText</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_16">
-    <property name="geometry">
-     <rect>
-      <x>1</x>
-      <y>20</y>
-      <width>142</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Veuillez sélectionner une date</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_17">
-    <property name="geometry">
-     <rect>
-      <x>1</x>
-      <y>228</y>
-      <width>91</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Programme du jour</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_18">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>0</y>
-      <width>511</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Ajouter un événement &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::RichText</enum>
-    </property>
-    <property name="openExternalLinks">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="AjouterTache">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>580</y>
-      <width>179</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Ajouter Tache !</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>550</x>
-      <y>30</y>
-      <width>51</width>
-      <height>631</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_33">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>30</y>
-      <width>301</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Ajouter une Tache&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_34">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>30</y>
-      <width>241</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Ajouter une Activité &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line_4">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>20</y>
-      <width>521</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_5">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>521</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_6">
-    <property name="geometry">
-     <rect>
-      <x>252</x>
-      <y>0</y>
-      <width>21</width>
-      <height>621</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>610</x>
-      <y>70</y>
-      <width>135</width>
-      <height>115</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_30">
-       <property name="text">
-        <string>Duree</string>
-       </property>
+    <layout class="QGridLayout" name="gridLayout_13">
+     <item row="1" column="0">
+      <widget class="QTreeWidget" name="TreeProjet">
+       <column>
+        <property name="text">
+         <string>Liste des Projets</string>
+        </property>
+       </column>
+       <item>
+        <property name="text">
+         <string>Projet 1</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>TacheMulti1</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Tache1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Tache2</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>TacheMulti2</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Tache3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Tache4</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>Tache5</string>
+         </property>
+        </item>
+       </item>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_24">
+      <widget class="QLabel" name="label_43">
        <property name="text">
-        <string>Description</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QPushButton" name="AjouterTache_2">
-       <property name="text">
-        <string>Ajouter Activite</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QSpinBox" name="dureeEvt_3"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="titre_2">
-       <property name="text">
-        <string>Description</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Vos Projets &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>278</x>
-      <y>440</y>
-      <width>259</width>
-      <height>114</height>
+      <x>920</x>
+      <y>0</y>
+      <width>491</width>
+      <height>452</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_14">
+     <item row="4" column="0">
+      <widget class="QTableWidget" name="EmploiDuT"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_20">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Veuillez sélectionner une date&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_17">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Programme du jour sélectionné&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCalendarWidget" name="Calendrier"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Votre Agenda&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>417</width>
+      <height>461</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="0" colspan="4">
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="label_13">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_32">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Si Unitaire,veuillez remplir les informations sivantes&lt;/p&gt;&lt;p&gt;Sinon, cliquez sur ajouter Tache&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_31">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="label_33">
        <property name="text">
-        <string>Type de la tache</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Ajouter une Tache&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QRadioButton" name="preempt">
+     <item row="12" column="1">
+      <widget class="QRadioButton" name="unitaire">
        <property name="text">
         <string>Unitaire</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_23">
-       <property name="text">
-        <string>Duree</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QRadioButton" name="composite">
-       <property name="text">
-        <string>Composite</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="3">
-      <widget class="QRadioButton" name="radioButton_3">
-       <property name="text">
-        <string>Preemptive</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1" colspan="3">
+     <item row="14" column="1">
       <widget class="QSpinBox" name="dureeEvt_2"/>
      </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>70</y>
-      <width>281</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="3" column="0">
-      <widget class="QDateEdit" name="dispoTache">
-       <property name="dateTime">
-        <datetime>
-         <hour>0</hour>
-         <minute>0</minute>
-         <second>0</second>
-         <year>2015</year>
-         <month>6</month>
-         <day>1</day>
-        </datetime>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Date de disponibilité</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="titre">
-       <property name="text">
-        <string>titre</string>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Associer une(des) Tache(s) précédente(s)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="text">
         <string>Date d'échéance</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="9" column="1">
+      <widget class="QComboBox" name="ProjetList">
+       <item>
+        <property name="text">
+         <string>------</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Projet1</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Projet2</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="12" column="2">
+      <widget class="QRadioButton" name="composite">
        <property name="text">
-        <string>Titre</string>
+        <string>Composite</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
+     <item row="17" column="0">
+      <widget class="QCheckBox" name="checkBox">
+       <property name="text">
+        <string>Ajouter à une tache composite ? </string>
+       </property>
+      </widget>
+     </item>
+     <item row="17" column="1">
+      <widget class="QComboBox" name="TacheCompoList"/>
+     </item>
+     <item row="12" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Type de la tache</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" colspan="6">
+      <widget class="Line" name="line_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" rowspan="2" colspan="6">
+      <widget class="Line" name="line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="titreTache">
+       <property name="text">
+        <string>titre</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1" colspan="2">
       <widget class="QDateEdit" name="echeanceTache">
        <property name="dateTime">
         <datetime>
@@ -497,17 +236,95 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_22">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Associer au projet</string>
+        <string>Titre</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
-      <widget class="QListWidget" name="ListeProjet"/>
+     <item row="13" column="0">
+      <widget class="QLabel" name="label_32">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Si Unitaire,veuillez remplir les informations sivantes&lt;/p&gt;&lt;p&gt;Sinon, cliquez sur ajouter Tache&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Date de disponibilité</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0" colspan="5">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Associer une(des) Tache(s) précédente(s)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="1" colspan="5">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_31">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="14" column="0">
+      <widget class="QLabel" name="label_23">
+       <property name="text">
+        <string>Duree</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1" colspan="2">
+      <widget class="QDateEdit" name="dispoTache">
+       <property name="dateTime">
+        <datetime>
+         <hour>0</hour>
+         <minute>0</minute>
+         <second>0</second>
+         <year>2015</year>
+         <month>6</month>
+         <day>1</day>
+        </datetime>
+       </property>
+      </widget>
+     </item>
+     <item row="16" column="0">
+      <widget class="QCheckBox" name="Preempt">
+       <property name="text">
+        <string>Preemptive</string>
+       </property>
+      </widget>
      </item>
      <item row="9" column="0">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>Projet associé</string>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="0" colspan="3">
+      <widget class="QPushButton" name="AjouterTache">
+       <property name="text">
+        <string>Ajouter Tache !</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0" colspan="5">
       <widget class="QTableWidget" name="TachePrec">
        <column>
         <property name="text">
@@ -518,52 +335,208 @@
      </item>
     </layout>
    </widget>
-   <zorder>EmploiDuT</zorder>
-   <zorder>verticalLayoutWidget_2</zorder>
-   <zorder>calendarWidget</zorder>
-   <zorder>label_8</zorder>
-   <zorder>label_16</zorder>
-   <zorder>label_17</zorder>
-   <zorder>label_18</zorder>
-   <zorder>label_25</zorder>
-   <zorder>dateProg</zorder>
-   <zorder>debutProg</zorder>
-   <zorder>label</zorder>
-   <zorder>label</zorder>
-   <zorder>titre</zorder>
-   <zorder>label_3</zorder>
-   <zorder>dispoTache</zorder>
-   <zorder>label_4</zorder>
-   <zorder>echeanceTache</zorder>
-   <zorder>composite</zorder>
-   <zorder>preempt</zorder>
-   <zorder>label_6</zorder>
-   <zorder>AjouterTache</zorder>
-   <zorder>label_5</zorder>
-   <zorder>label_13</zorder>
-   <zorder>radioButton_3</zorder>
-   <zorder>TachePrec</zorder>
-   <zorder>line_3</zorder>
-   <zorder>label_25</zorder>
-   <zorder>label_22</zorder>
-   <zorder>ListeProjet</zorder>
-   <zorder>label_23</zorder>
-   <zorder>dureeEvt_2</zorder>
-   <zorder>label_24</zorder>
-   <zorder>titre_2</zorder>
-   <zorder>label_30</zorder>
-   <zorder>dureeEvt_3</zorder>
-   <zorder>label_31</zorder>
-   <zorder>label_32</zorder>
-   <zorder>label_32</zorder>
-   <zorder>AjouterTache_2</zorder>
-   <zorder>label_33</zorder>
-   <zorder>label_34</zorder>
-   <zorder>line_4</zorder>
-   <zorder>line_5</zorder>
+   <widget class="Line" name="line_10">
+    <property name="geometry">
+     <rect>
+      <x>463</x>
+      <y>11</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>10</y>
+      <width>291</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_5">
+     <item row="3" column="0">
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="3" column="3">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="5" column="0">
+          <widget class="QPushButton" name="AjouterActivite">
+           <property name="text">
+            <string>Programmer</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QSpinBox" name="DureeActivite"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="DescripActivite">
+           <property name="text">
+            <string>Description</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_30">
+           <property name="text">
+            <string>Duree</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_24">
+           <property name="text">
+            <string>Description</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="1" rowspan="4" colspan="2">
+        <widget class="Line" name="line_15">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" colspan="3">
+        <widget class="Line" name="line_12">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2" colspan="3">
+        <widget class="Line" name="line_13">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="Line" name="line_14">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QLabel" name="label_34">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Programmer une Activité &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" colspan="3">
+        <widget class="Line" name="line_6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Programmer une tache&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="titreEvt">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Horaire</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Titre</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Date </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QDateEdit" name="dateEvt">
+           <property name="dateTime">
+            <datetime>
+             <hour>0</hour>
+             <minute>0</minute>
+             <second>0</second>
+             <year>2015</year>
+             <month>6</month>
+             <day>1</day>
+            </datetime>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QTimeEdit" name="horaireEvt"/>
+         </item>
+        </layout>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="ProgrammeTache">
+         <property name="text">
+          <string>Programmer</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;OU&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Programmer un événement &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+       <property name="openExternalLinks">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>layoutWidget</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_7</zorder>
    <zorder>line_6</zorder>
-   <zorder>label_32</zorder>
-   <zorder>TachePrec</zorder>
+   <zorder>label_19</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
