@@ -178,9 +178,5 @@ void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e)
 }
 
 
-bool Evenement::estProgramme(){
-   ProgrammationManager pm = ProgrammationManager::getInstance();
-   return pm.ExistProgrammation(this);
-}
 
 
