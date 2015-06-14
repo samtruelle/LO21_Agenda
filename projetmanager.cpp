@@ -1,6 +1,6 @@
 #include "projetmanager.h"
 
-static ProjetManager* instanceUnique = 0;
+ProjetManager* ProjetManager::instanceUnique = 0;
 
 Projet& ProjetManager::getProjet(const QString& id) {
     for(list<Projet*>::iterator it = projets.begin(); it != projets.end(); it++) {

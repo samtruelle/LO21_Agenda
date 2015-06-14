@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     Calendar.cpp \
     timing.cpp \
     projetmanager.cpp \
-    tachemanager.cpp
+    tachemanager.cpp \
+    programmationmanager.cpp
 
 HEADERS  += mainwindow.h \
     Calendar.h \
@@ -26,7 +27,8 @@ HEADERS  += mainwindow.h \
     frabiquesingleton.h \
     projetmanager.h \
     fenetre.h \
-    tachemanager.h
+    tachemanager.h \
+    programmationmanager.h
     projetmanager.h
 
 FORMS    += \
