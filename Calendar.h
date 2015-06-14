@@ -31,7 +31,9 @@ private:
 class Tache;
 
 /*! \class Projet
- * \brief classe projet
+ * \brief classe projet, pseudo singleton permettant la gestion de tache
+ *
+ *  Ajout, suppression traitement sur les tâches
  *
  */
 class Projet {

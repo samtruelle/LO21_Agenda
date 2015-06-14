@@ -6,7 +6,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Calendar.h"
-)
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

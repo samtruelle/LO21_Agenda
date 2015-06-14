@@ -10,7 +10,7 @@
 using namespace std;
 
 /*! \class ProjetManager
- * \brief singleton de projet
+ * \brief singleton de projet, gérer la création, la suppression et la gestion de projets
  *
  *  La classe gère la création, la suppression et le stockage des différents projets.
  */
