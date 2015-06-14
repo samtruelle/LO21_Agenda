@@ -27,6 +27,7 @@ QObject::connect(ui->ProgrammeTache, SIGNAL (clicked()), this, SLOT (ProgrammerT
 // Gestion Evenements
 QObject::connect(ui->AjouterActivite, SIGNAL (clicked()), this, SLOT (ajouterTache()));
 }
+
 void MainWindow::displayProgrammation(const Programmation &p)
 {
     int date = p.getDate().dayOfWeek() -1;
@@ -45,6 +46,11 @@ void MainWindow::update()
 }
 
 
+void MainWindow::on_AjouterTache_clicked(){
+  try{
+    TacheManager &m = TacheManager::getInstance();
+
+ }}
 
 MainWindow::~MainWindow() {
     pm.freeInstance();
@@ -109,6 +115,7 @@ void MainWindow::ajouterTache(){
 else throw CalendarException("AJout Impossible");
     }
 }
+
 
 
 

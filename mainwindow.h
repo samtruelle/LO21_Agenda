@@ -74,6 +74,9 @@ public slots:
     //void on_AjouterTache_clicked();
      //void on_AjouterActivite_clicked();
      //void on_ProgrammeEvt_clicked();
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
 

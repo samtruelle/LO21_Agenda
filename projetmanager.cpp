@@ -85,9 +85,12 @@ void ProjetManager::saveProjet(const QString& fichier) {
         stream.writeAttribute("dateEcheance", (i->getEcheance()).toString("yyyy-MM-dd"));
         // LOOP tâches  projet
 <<<<<<< HEAD
+<<<<<<< HEAD
 std::list<Tache*>& t = (*it)->getTaches();
 for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
 =======
+=======
+>>>>>>> origin/master
         std::list<Tache*>& t = (*it)->getTaches();
         for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
 >>>>>>> origin/master
@@ -98,7 +101,11 @@ for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
             if(dynamic_cast<TacheUnitaire*>(i2))
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                  if(i2->isPreemptive())
+=======
+                 if(dynamic_cast<TacheUnitaire*>(i2)->ispreemptable())
+>>>>>>> origin/master
 =======
                  if(dynamic_cast<TacheUnitaire*>(i2)->ispreemptable())
 >>>>>>> origin/master
