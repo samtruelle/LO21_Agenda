@@ -183,47 +183,4 @@ bool Evenement::estProgramme(){
 }
 
 
-ProgrammationManager::saveActivite(const QString& fichierbis){
-    QFile newfile(fichierbis);
-    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
-        throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");
-    QXmlStreamWriter stream(&newfile);
-    stream.setAutoFormatting(true);
-    stream.writeStartDocument();
-//DEBUT SAVE ACTIVITE
-    stream.writeStartElement("Activité");
-    EvenementManager& monEvenementManager = EvenementManager::getInstance();
-    std::list<Programmation*> iter = monEvenementManager.getEvenements();
-    // LOOP évènements.
-    for(std::list<>::iterator it = iter.begin(); it != iter.end(); it++) {
-        stream.writeStartElement("evenement");
 
-        if(dynamic_cast<Rdv*>(*it)) {
-            stream.writeAttribute("type", "rdv");
-            stream.writeTextElement("participant", ((Rdv*)(*it))->getParticipant());
-        } else if(dynamic_cast<Reunion*>(*it)) {
-            stream.writeAttribute("type", "reunion");
-            stream.writeTextElement("participants", ((Reunion*)(*it))->getParticipants());
-        } else if(dynamic_cast<ActiviteTrad*>(*it)) {
-            stream.writeAttribute("type", "acttrad");
-            stream.writeTextElement("lieu", ((ActiviteTrad*)(*it))->getLieu());
-        } else if(dynamic_cast<Partie*>(*it)) {
-            stream.writeAttribute("type", "partie");
-            stream.writeTextElement("id", QString::number(((Partie*)(*it))->getId()));
-        } else {
-            throw CalendarException("Erreur : type d'évènement inconnu, export impossible.");
-        }
-
-        stream.writeTextElement("date", ((*it)->getDate()).toString("yyyy-MM-dd"));
-        stream.writeTextElement("sujet", (*it)->getDescription());
-        stream.writeTextElement("heureDebut", QString::number((*it)->getHeureDebut()));
-        stream.writeTextElement("dureeHeure", QString::number((*it)->getDuree()));
-
-        stream.writeEndElement();
-    }
-    stream.writeEndElement();
-    // FIN ECRITURE EVENEMENTS
-
-    stream.writeEndDocument();
-    newfile.close();
-}

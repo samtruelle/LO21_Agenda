@@ -37,3 +37,42 @@ void ProgrammationManager::supprimerProgrammation(Evenement *e){
     }
     throw CalendarException("suppProgrammation : pas de programmation correspondant");
 }
+
+void ProgrammationManager::saveActivite(const QString& fichierbis){
+    QFile newfile(fichierbis);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+//DEBUT SAVE ACTIVITE
+    stream.writeStartElement("Activité");
+    ProgrammationManager& Progra = ProgrammationManager::getInstance();
+    std::list<Programmation*> itprog = Progra.getProgrammations();
+    // LOOP Programmation.
+    for(std::list<>::iterator it = itprog.begin(); it != itprog.end(); it++) {
+        stream.writeStartElement("Activite");
+           Programmation* p= *it;
+           Evenement* e=p->getEvenement();
+        if(dynamic_cast<Activite*>(e)) {
+            stream.writeAttribute("type", "Activite");
+            stream.writeTextElement("Description", ((Activite*)e->getDescription()));
+            stream.writeTextElement("Duree", QString::number(((Activite*)e)->getDuree()));
+            stream.writeTextElement("Description", ((Activite*)e->getLieu()));
+
+            stream.writeTextElement("Date", (p->getDate()).toString("yyyy-MM-dd"));
+            stream.writeTextElement("Horaire", QString::number(p->getHoraire()));
+
+        } else {
+            throw CalendarException("Erreur: SAVE Activite failed  ");
+        }
+
+
+        stream.writeEndElement();
+    }
+    stream.writeEndElement();
+    // FIN LOOP PROGRAMMATION
+
+    stream.writeEndDocument();
+    newfile.close();
+}

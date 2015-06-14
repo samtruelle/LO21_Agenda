@@ -615,7 +615,7 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-<<<<<<< HEAD
+/*<<<<<<< HEAD
 class ProgrammationManager {
 
 
@@ -635,7 +635,7 @@ public:
 };
 =======
 
->>>>>>> origin/master
+>>>>>>> origin/master*/
 
 
 #endif

@@ -107,6 +107,15 @@ public:
        *  \return bool true si programmation de l'evenement existe, false sinon
        */
       bool ExistProgrammation(Evenement* e);
+
+      /*!
+       *  \brief Permet de sauvegarder les activites créée sur un fichier xml
+       *
+       *  \param  const QString& nom du fichier xml
+       */
+
+      void saveActivite(const QString& fichierbis);
+
 };
 
 
