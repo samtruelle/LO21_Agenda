@@ -26,6 +26,8 @@
 #include <QGraphicsTextItem>
 #include <QTableWidgetItem>
 #include "Calendar.h"
+#include "programmationmanager.h"
+#include"projetmanager.h"
 #include <QComboBox>
 #include <QCheckBox>
 
@@ -40,25 +42,32 @@ class MainWindow : public QMainWindow
 private:
     Ui::MainWindow *ui;
     //void donnerProgrammation( Programmation& p);
-void afficherProgrammation(Programmation& p);
+    ProjetManager &projm;  /*!< Référence vers la classe singleton ProjetManager*/
+   ProgrammationManager &progm; /*!< Référence vers la classe singleton EvenementManager*/
+   Projet* currentProjet; /*!< Projet sélectionné dans l'interface graphique*/
+   int firstDay; /*!< Numéro du premier jour affiché sur le calendrier*/
+   QDate firstDate; /*!< Première date affichée sur le calendrier*/
+   /*!
+    *  \brief Getter du projet actuel
+    *
+    *  Methode qui permet de récupérer une référence sur le projet actuellement utilisé dans le calendrier.
+    *
+    *  \return une référence sur un projet
+    */
+   Projet& curProjet() { return *currentProjet; }
 
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void update();
-    void afficherEdt();
-    void ajouterTache();
-    void ajouterActivite();
-    void afficherEvt();
-    void displayProgrammation(const Programmation& p);
-    void afficherProjet();
-    void ajoutersousTache();
-    void afficherPrec();
-public slots:
-    void on_AjouterTache_clicked();
-     void on_AjouterActivite_clicked();
-     void on_ProgrammeEvt_clicked();
 
+
+
+private slots:
+   void nouveauProjet();
+   void ajouterTache();
+   void ajoutersoustache();
+   void ProgrammerActivite();
+    void ProgrammerTache();
 
 
 };

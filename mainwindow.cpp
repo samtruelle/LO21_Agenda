@@ -1,101 +1,107 @@
-/*
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "Calendar.h"
-
-=======
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Calendar.h"
-)
->>>>>>> origin/master
+
+
+#include"Calendar.h"
+#include "projetmanager.h"
+#include"programmationmanager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    QMainWindow(parent), ui(new Ui::MainWindow),firstDay(0), firstDate(QDate(2015, 1, 1)),
+    em(EvenementManager::getInstance()),currentProjet(0),projm(ProjetManager::getInstance())
 {
-
     ui->setupUi(this);
-    //connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(afficherT(Tache& t)));
-    //QMetaObject::connectSlotsByName(this);
 
-    ui->EmploiDuT->setRowCount(24);
-    ui->EmploiDuT->setColumnCount(7);
 
-    QStringList jours;
-    jours << "lundi" << "mardi" << "mercredi" << "jeudi" << "vendredi" << "samedi" << "dimanche";
-    ui->EmploiDuT->setHorizontalHeaderLabels(jours);
-    QStringList heure;
-    heure << "00h00" << "01h00" << "02h00" << "03h00" <<  "04h00" << "05h00" << "06h00" << "07h00" << "08h00" << "09h00" << "10h00" << "11h00" << "12h00" << "13h00" << "14h00" << "15h00" << "16h00" << "17h00" << "18h00" << "19h00" << "20h00" << "21h00" << "22h00" << "23h00" << "24h00";
-    ui->EmploiDuT->setVerticalHeaderLabels(heure);
-    for(int i =0; i < 24; i++){
-        for(int j =0; j < 7; j++){
-            ui->EmploiDuT->setItem(i, j, new QTableWidgetItem);
+
+// Partie Projet - Gestion projets
+QObject::connect( ui->AjouterProjet , SIGNAL (clicked()), this, SLOT (nouveauProjet()));
+// Partie Projet - Gestion tâches
+QObject::connect(ui->AjouterTache, SIGNAL (clicked()), this, SLOT (ajouterTache()));
+QObject::connect(ui->ProgrammeTache, SIGNAL (clicked()), this, SLOT (ProgrammerTache()));
+// Gestion Evenements
+QObject::connect(ui->AjouterActivite, SIGNAL (clicked()), this, SLOT (ajouterTache()));
+
+
+
+
+}
+MainWindow::~MainWindow() {
+    pm.freeInstance();
+    delete ui;
+}
+
+
+void MainWindow::nouveauProjet(){
+    ProjetManager&  pj=ProjetManager::getInstance();
+    pj.ajouterProjet(ui->NomProjet_2->text(),ui->DatedispoProj->date(),ui->EcheanceProj->date());
+    ui->TreeProjet->addTopLevelItem(ui->NomProjet_2->text());
+    ui->ProjetList->addItem(ui->NomProjet_2->text());
+
+}
+void MainWindow::ajouterTache(){
+    Projet& p = ProjetManager::getProjet(ui->ProjetList->currentText());
+
+    if (ui->unitaire->isChecked())
+  { //Ajout Tache Unitaire au projet
+       if (ui->Preempt->isChecked())
+        p.ajoutTacheUni(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),Duree(ui->DureeTache->value()),ui->DecrTacheUni->text(),TRUE);
+        else
+           p.ajoutTacheUni(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),Duree(ui->DureeTache->value()),ui->DecrTacheUni->text(),FALSE);
+      //Precedence Tache Unitaire
+       Tache* t= p.trouverTache(ui->titreTache->text());
+      Tache* t2=p.trouverTache(ui->TachePrec->currentItem()->text());
+       t->addPrecedente(t2);
+       //Ajout a une tache composite
+       if (ui->composite->isChecked())
+       {  Tache* t1=Projet::trouverTache(ui->titreTache->text());
+
+           Tache* t=Projet::trouverTache(ui->TacheCompoList->currentText());
+           if(dynamic_cast<TacheComposite*>(t))
+           {t->addSousTache(t1);
+           }
+           else throw CalendarException("Ajout a une tache Composite Impossible");
+
+}}
+    else
+    {
+        if (ui->composite->isChecked()) {
+            //Ajout Tache Composite au projet
+     p.ajoutTacheComp(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date());
+     //Precedence Tache Composite
+
+     Tache* t= p.trouverTache(ui->titreTache->text());
+     Tache* t2=p.trouverTache(ui->TachePrec->currentItem()->text());
+      t->addPrecedente(t2);
+      //Ajout a une tache composite
+      if (ui->composite->isChecked())
+      {  Tache* t1=Projet::trouverTache(ui->titreTache->text());
+
+          Tache* t=Projet::trouverTache(ui->TacheCompoList->currentText());
+          if(dynamic_cast<TacheComposite*>(t))
+          {t->addSousTache(t1);
+          }
+          else throw CalendarException("Ajout a une tache Composite Impossible");
+
+}
 
         }
-    }
-    ui->EmploiDate->setDate(QDate::currentDate());
-
-<<<<<<< HEAD
-=======
-}
-void MainWindow::displayProgrammation(const Programmation &p)
-{
-    int date = p.getDate().dayOfWeek() -1;
-    int i=0;
-    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
-    {
-        ui->EmploiDuT->item(i, date)->setBackgroundColor(Qt::red);
-    }
-}
-
-void MainWindow::update()
-{
-    ProgrammationManager &p = ProgrammationManager::getInstance();
-    MainWindow::afficherEdt();
-    this->afficherEvt();
-}
-void MainWindow::on_AjouterTache_clicked(){
-  try{
-    TacheManager &m = TacheManager::getInstance();
-
-    if(ui->Preempt->isChecked()){
-    m.(ui->titreTache->text(),ui->dispoTache->date(),ui->echeanceTache->date(),ui->DureeActivite->value());
-    }
-    else if (ui->composite->isChecked()){
-        m.(ui->idTache->text(),ui->titre->text(), ui->dispoTache->date(),ui->echeanceTache->date());
-
-    }
-    Tache t  =m.getTache(ui->idTache->text());
-    ui->Retour->appendPlainText(t.afficherTache());
-
-
-    }catch(CalendarException e){
-
-ui->Retour->appendPlainText("Erreur ajout tache ");
+else throw CalendarException("AJout Impossible");
     }
 
->>>>>>> origin/master
+
 }
+void MainWindow::ProgrammerActivite(){
+    Activite* act=new Activite(ui->DureeActivite->value(),ui->DescripActivite->text(),ui->LieuActivite->text());
+ ProgrammationManager::ajouterProgrammation(act,ui->dateActi->date(),Horaire(ui->HeureActi->text())) ;
 
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-
-<<<<<<< HEAD
 }
-
-void MainWindow::afficherProgrammation(Programmation &p)
-{
-    int date = p.getDate().dayOfWeek();
-    int i=0;
-    ui->Retour_2->appendPlainText( p.getHoraire().toString("h"));
-    for( i = p.getHoraire().toString("h").toInt(); i <p.getfin().toString("h").toInt(); i++)
-    {
-        ui->Retour_2->appendPlainText("ghggh");
-    }
+void MainWindow::ProgrammerTache(){
+    Tache* t=Projet::trouverTache(ui->ProgrammeTache->text());
+    if (dynamic_cast<TacheUnitaire*>(t)){ Evenement* ev=new Evenement(t->getDuree(),t->getDescription());
+    ProgrammationManager::ajouterProgrammation(ev,ui->datetache->date(),Horaire(ui->heuretache->text()));
 }
-*/
+}
 
