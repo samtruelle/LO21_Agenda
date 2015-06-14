@@ -12,7 +12,7 @@ class ProgrammationManager {
 
     list<Programmation*> programmations;/*!< Liste des programmations*/
 
-    static ProgrammationManager& instance;/*!< instance unique de programmationManager*/
+    static ProgrammationManager* instance;/*!< instance unique de programmationManager*/
 
     /*!
      *  \brief Constructeur

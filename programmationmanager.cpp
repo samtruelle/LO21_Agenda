@@ -1,5 +1,7 @@
 #include "programmationmanager.h"
 
+ProgrammationManager* ProgrammationManager::instance = 0;
+
 bool ProgrammationManager::ExistProgrammation(Evenement* e) {
     for(list<Evenement*>::iterator it = programmations.begin(); it != programmations.end(); it++) {
         if((*it)->getEvenement()->getDescription == e->getDescription()) {

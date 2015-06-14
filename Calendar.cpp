@@ -6,6 +6,8 @@
 #include "tachemanager.h"
 #include <iostream>
 #include <sstream>
+#include "programmationmanager.h"
+#include "projetmanager.h"
 
 
 QTextStream& operator<<(QTextStream& f, const Duree & d){ d.afficher(f); return f; }
@@ -173,6 +175,11 @@ void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e)
 }
 
 
+bool Evenement::estProgramme(){
+   ProgrammationManager pm = ProgrammationManager::getInstance();
+   return pm.ExistProgrammation(this);
 
+   ProjetManager pm2 = ProjetManager::getInstance();
+}
 
 

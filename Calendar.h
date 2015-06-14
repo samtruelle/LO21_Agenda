@@ -98,7 +98,7 @@ class Projet {
          *
          *  \param t Pointeur vers la tache à ajouter
          */
-        void ajouterTache(Tache *);
+        void ajouterTache(Tache*);
 
         /*!
          *  \brief suppression d'une tâche
@@ -140,7 +140,6 @@ class Projet {
          */
         void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e);
 };
-
 
 
 /*! \class Duree
@@ -263,7 +262,7 @@ public:
      *  \param Tache* la tâche à trouver
      *  \return Tache& une référence vers la tâche recherchée ou null
      */
-    Tache* findTache(Tache* t,list<Tache*> l);//A TESTER, getTitre plutot que t
+    Tache* findTache(Tache* t,list<Tache*> l);
 
     /*!
      *  \brief rechercher une tache
@@ -274,7 +273,7 @@ public:
      *  \param QString& titre de la tâche à trouver
      *  \return Tache& une référence vers la tâche recherchée ou null
      */
-    Tache* findTache(const QString& t,list<Tache*> l);//A TESTER, getTitre plutot que t
+    Tache* findTache(const QString& t,list<Tache*> l);
 
     /*!
      *  \brief rechercher une tache
@@ -285,7 +284,7 @@ public:
      *  \param Tache* la tâche à trouver
      *  \bool True si la tache existe, false sinon
      */
-    bool existTache(Tache* t,list<Tache*> l);//A TESTER
+    bool existTache(Tache* t,list<Tache*> l);
 
     /*!
      *  \brief rechercher une tache
@@ -296,7 +295,7 @@ public:
      *  \param QString& titre de la tâche à trouver
      *  \bool True si la tache existe, false sinon
      */
-    bool existTache(const QString& t,list<Tache*> l);//A TESTER
+    bool existTache(const QString& t,list<Tache*> l);
 
     /*!
      *  \brief Ajout d'une tâche précédente
@@ -306,7 +305,6 @@ public:
      *  \param tache pointeur vers la tâche à ajouter
      */
     void addPrecedente(Tache* t);
-
 
     /*!
      *  \brief Suppression d'une tâche précédente
@@ -325,6 +323,8 @@ public:
         return(titre==t1->getId());
     }
 
+    template<typename T>
+    bool EstProgrammable();
 
     /*!
      *  \brief Affichage des informations de la tâche
@@ -377,6 +377,12 @@ public :
      */
     QString getDescription() const { return description; }
 
+    /*!
+     *  \brief Un evenement est-il programmé
+     *
+     *
+     *  \return bool true si programmé, false sinon
+     */
     bool estProgramme();
 };
 
