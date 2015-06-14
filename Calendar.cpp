@@ -3,7 +3,6 @@
 #include <QTextCodec>
 //#include <QtXml>
 #include <QMessageBox>
-#include "tachemanager.h"
 #include <iostream>
 #include <sstream>
 #include "programmationmanager.h"
@@ -50,10 +49,6 @@ QTextStream& operator<<(QTextStream& fout, const Tache& t){
 
 QTextStream& operator<<(QDataStream& f, const Programmation& p);
 
-/*void Tache::setTitre(const QString& str){
-  if (TacheManager::getInstance().isTacheExistante((str))) throw CalendarException("erreur TacheManager : tache déjà existante");
-  titre=str;
-}*/
 
 Tache* Tache::findTache(Tache* t, list<Tache *> l){
     list<Tache*>::iterator it = find(l.begin(), l.end(), t);
@@ -182,12 +177,10 @@ void Projet::ajoutTacheComp(const QString& t, const QDate& d, const QDate& e)
     ajouterTache(comptache);
 }
 
-/*
+
 bool Evenement::estProgramme(){
    ProgrammationManager pm = ProgrammationManager::getInstance();
    return pm.ExistProgrammation(this);
-
-   ProjetManager pm2 = ProjetManager::getInstance();
-}*/
+}
 
 

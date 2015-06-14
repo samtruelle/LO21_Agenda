@@ -5,37 +5,104 @@
 
 using namespace std;
 
-//creation de la fabrique de singleton$
+
 template <typename...> class FabriqueSingleton;
 
 
+/*! \class FabriqueSingleton
+ * \brief Template class de singleton
+ *
+ *
+ * La classe génère automatique des classes singletons
+ */
 template <typename T,typename U>
 class FabriqueSingleton<T,U>{
 
 
-    list<U*> items;
-    static T* instance;
+    list<U*> items;/*!< Liste d'items U**/
+    static T* instance;/*!< instance unique de singleton*/
 
     //static T* CreateInstance();
 
+    /*!
+     *  \brief Constructeur
+     *
+     *  Constructeur de la classe FabriqueSingleton
+     */
     FabriqueSingleton();
 
+    /*!
+     *  \brief Destructeur
+     *
+     *  Destructeur de la classe FabriqueSingleton
+     */
     ~FabriqueSingleton();
 
 public:
 
+    /*!
+     *  \brief Accesseur à l'instance unique du singleton
+     *
+     *  Initialise l'instance si ce n'est pas déjà le cas
+     *
+     *  \return T&
+     */
     static T& getInstance();
 
+
+    /*!
+     *  \brief suppresseur de l'instance unique du singleton
+     *
+     *  Delete l'instance et la met 0 si elle initialisée
+     *
+     */
     static void freeInstance();
 
+
+    /*!
+     *  \brief Ajoute un élément à la liste de U*
+     *
+     *  Throw exception si un iteam à l'id égal à i existe
+     *
+     *  \param U*
+     */
     void ajouterItem(U* i);
 
+
+    /*!
+     *  \brief teste l'existence d'un item U
+     *
+     *  \param QString Id de l'item a trouver
+     *  \return bool true si l'item est trouvé, false sinon
+     */
     bool existsItem(const QString& id);
 
+
+    /*!
+     *  \brief renvoie une référence sur un item U
+     *
+     *  \param QString Id de l'item a retourner
+     *
+     *  \return U& une référence sur l'item si il est trouvé
+     */
     U& getItem(const QString& id);
 
+
+    /*!
+     *  \brief supprimer l'item identifié par id si il est trouvé
+     *
+     *  \param QString Id de l'item a supprimer
+     *
+     */
     void suppItem(const QString& id);
 
+
+    /*!
+     *  \brief retourne la liste de pointeur sur des items U
+     *
+     *  \return list<U*> la liste des pointeurs sur item
+     *
+     */
     list<U*> getItems(){return items;}
 };
 

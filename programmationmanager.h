@@ -5,7 +5,6 @@
 #include <QTextStream>
 #include <QXmlStreamWriter>
 #include <list>
-#include <vector>
 
 using namespace std;
 
@@ -114,7 +113,6 @@ public:
        *
        *  \param  const QString& nom du fichier xml
        */
-
       void saveActivite(const QString& fichierbis);
 
 

@@ -24,7 +24,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
     /*!
      *  \brief Constructeur
      *
-     *  Constructeur de la classe TacheManager
+     *  Constructeur de la classe ProjetManager
      */
     ProjetManager():projets(0){}
 

@@ -7,9 +7,22 @@
 
 using namespace std;
 
+/*! \class CalendarException
+ * \brief classe d'exception
+ *
+ */
 class CalendarException{
 public:
+
+    /*! \brief Constructeur
+     *
+     *  Constructeur public de la classe d'exception
+     *
+     *  \param QString& message de l'exception
+     */
     CalendarException(const QString& message):info(message){}
+
+
     QString getInfo() const { return info; }
 private:
     QString info;

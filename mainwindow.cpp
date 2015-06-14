@@ -1,15 +1,12 @@
-/*
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Calendar.h"
 
-=======
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "Calendar.h"
 )
->>>>>>> origin/master
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,8 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     ui->EmploiDate->setDate(QDate::currentDate());
 
-<<<<<<< HEAD
-=======
 }
 void MainWindow::displayProgrammation(const Programmation &p)
 {
@@ -56,6 +51,8 @@ void MainWindow::update()
     MainWindow::afficherEdt();
     this->afficherEvt();
 }
+
+/*
 void MainWindow::on_AjouterTache_clicked(){
   try{
     TacheManager &m = TacheManager::getInstance();
@@ -76,15 +73,13 @@ void MainWindow::on_AjouterTache_clicked(){
 ui->Retour->appendPlainText("Erreur ajout tache ");
     }
 
->>>>>>> origin/master
 }
-
+*/
 
 MainWindow::~MainWindow()
 {
     delete ui;
 
-<<<<<<< HEAD
 }
 
 void MainWindow::afficherProgrammation(Programmation &p)
@@ -97,5 +92,5 @@ void MainWindow::afficherProgrammation(Programmation &p)
         ui->Retour_2->appendPlainText("ghggh");
     }
 }
-*/
+
 
