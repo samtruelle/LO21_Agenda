@@ -602,7 +602,6 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-
 class ProgrammationManager {
 
 
@@ -617,6 +616,8 @@ public:
 	ProgrammationManager(const ProgrammationManager& um);
 	ProgrammationManager& operator=(const ProgrammationManager& um);
     void ajouterProgrammation(const Evenement& e, const QDate& d, const QTime& h);
+    void saveActivite(const QString& fichierbis);
+
 };
 
 

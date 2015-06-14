@@ -116,6 +116,13 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *  \return bool vrai si il existe, faux sinon
      */
     bool existsProjet(const QString& id);
+    /*!
+     *  \brief Permet de sauver un projet dans un fichier XML
+     *
+     *  \param QString fichier nom du fichier
+     */
+
+    void save(const QString fichier);
 
 };
 

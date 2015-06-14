@@ -51,3 +51,73 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
     throw CalendarException("ProjetManager::getProjetByTache : pas de projet correspondant");
 }
 
+void ProjetManager::save(const QString& fichier) {
+    QFile newfile(fichier);
+    if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
+        throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");
+    QXmlStreamWriter stream(&newfile);
+    stream.setAutoFormatting(true);
+    stream.writeStartDocument();
+
+    // SAVE PROJETS
+    stream.writeStartElement("projets");
+    // LOOP  projets.
+    for (std::list<Projet*>::iterator it = projets.begin(); it != projets.end(); it++)
+    {
+        stream.writeStartElement("projet");
+        Projet* i=*it;
+        stream.writeAttribute("ID", i->getId());
+        stream.writeAttribute("Date de disponibilite", ((i->getDisponibilite()).toString("yyyy-MM-dd")));
+        stream.writeAttribute("dateEcheance", (i->getEcheance()).toString("yyyy-MM-dd"));
+        // LOOP tâches  projet
+        std::list<Tache*>& t = (*it)();
+        for(std::list<Tache*>::iterator itt = t.begin(); itt != t.end(); itt++)
+        {
+            stream.writeStartElement("tache");
+            Tache* i2=*itt;
+
+            if(dynamic_cast<TacheUnitaire*>(i2))
+            {
+                 if(i2->ispreemptable())
+                        {stream.writeAttribute("type", "Tache Unitaire Preemptive");}
+                 else
+                        {stream.writeAttribute("type", "Tache Unitaire Non Preemptive");}
+
+                stream.writeTextElement("Duree", QString::number(((TacheUnitaire*)i2)->getDuree()));
+
+
+                stream.writeEndElement();
+
+            }
+            else
+                            if(dynamic_cast<TacheComposite*>(i2))
+                            {
+                                stream.writeAttribute("type", "TacheComposite");
+                                stream.writeStartElement("composantes");
+                                std::list<Tache*>& tc = ((TacheComposite*)i2)->getSousTaches();
+                                for(std::list<Tache*>::iterator itc = tc.begin(); itc != tc.end(); itc++)
+                                {
+                                    stream.writeTextElement("nom", ((Tache*)*itc)->getId());
+                                }
+                                stream.writeEndElement();
+                                }
+                else
+            {
+                throw CalendarException("Erreur : Save failed, tâche non reconnue.");
+            }
+
+            stream.writeTextElement("ID", i2->getId());
+            stream.writeTextElement("dateDispo", (i2->getDateDispo()).toString("yyyy-MM-dd"));
+            stream.writeTextElement("dateEcheance", (i2->getDateEcheance()).toString("yyyy-MM-dd"));
+
+            stream.writeEndElement();
+      }
+        stream.writeEndElement();
+    }
+    stream.writeEndElement();
+
+    // FIN SAVE PROJETS
+    stream.writeEndDocument();
+    newfile.close();
+}
+
