@@ -3,9 +3,7 @@
 #include <QString>
 #include <QDate>
 #include <QTextStream>
-#include <list>
-#include  "programmationmanager.h"
-#include "projetmanager.h"
+
 
 using namespace std;
 
@@ -549,17 +547,14 @@ public :
     //void DisplayTache(std::ostream& f= std::cout);
 };
 
-QTextStream& operator<<(QTextStream& f, const Tache& t);
-
 
 
 
 /*! \class Programmation
  * \brief classe représentant la programmation d'un evenement a une date un horaire précis
  *
- *  La classe Tache composite hérite de la classe Tache.
  */
-class Programmation {
+class Programmation{
 
     const Evenement* eve;/*!< Evenement programmé*/
     QDate date;/*!< Date de programmation*/
@@ -619,35 +614,4 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*<<<<<<< HEAD
-class ProgrammationManager {
-
-
-	Programmation** programmations;
-
-
-	void addItem(Programmation* t);
-    Programmation* trouverProgrammation(const Evenement& e) const;
-public:
-	ProgrammationManager();
-	~ProgrammationManager();
-	ProgrammationManager(const ProgrammationManager& um);
-	ProgrammationManager& operator=(const ProgrammationManager& um);
-    void ajouterProgrammation(const Evenement& e, const QDate& d, const QTime& h);
-    void saveActivite(const QString& fichierbis);
-
-};
-=======
-
->>>>>>> origin/master*/
-=======
-
-
->>>>>>> origin/master
-
-
-=======
->>>>>>> origin/master
 #endif

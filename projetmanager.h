@@ -7,6 +7,8 @@
 #include <QTextStream>
 #include <QXmlStreamWriter>
 
+using namespace std;
+
 /*! \class ProjetManager
  * \brief singleton de projet
  *
@@ -118,12 +120,8 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      */
     void save(const QString& fichier);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void saveProjet(const QString& fichier);
-=======
-=======
->>>>>>> origin/master
+
+
     /*!
      *  \brief Destructeur
      *
@@ -131,7 +129,6 @@ void saveProjet(const QString& fichier);
      */
     virtual ~ProjetManager();
 
->>>>>>> origin/master
 };
 
 #endif // PROJETMANAGER

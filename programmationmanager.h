@@ -5,13 +5,16 @@
 #include <QTextStream>
 #include <QXmlStreamWriter>
 #include <list>
+#include <vector>
+
+using namespace std;
 
 /*! \class ProgrammationManager
  * \brief classe singleton gérant les programmations
  *
  *  La classe ProgrammationManager centralise toutes les opérations applicables au programmation
  */
-class ProgrammationManager {
+class ProgrammationManager{
 
 
     list<Programmation*> programmations;/*!< Liste des programmations*/

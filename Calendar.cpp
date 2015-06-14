@@ -191,7 +191,3 @@ bool Evenement::estProgramme(){
 }*/
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master

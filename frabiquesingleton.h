@@ -3,9 +3,9 @@
 #include "Calendar.h"
 #include <list>
 
+using namespace std;
 
 //creation de la fabrique de singleton$
-
 template <typename...> class FabriqueSingleton;
 
 
@@ -72,14 +72,12 @@ FabriqueSingleton<T,U>::~FabriqueSingleton()
     FabriqueSingleton::instance = 0;
 }
 
-
 /*template<typename T,typename U>
 inline T* FabriqueSingleton<T,U>::CreateInstance()
 {
     return new T();
 }
 */
-
 template<typename T,typename U>
 bool FabriqueSingleton<T,U>::existsItem(const QString& id){
     for(list<U*>::iterator it = items.begin(); it!=items.end();++it){
