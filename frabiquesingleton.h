@@ -2,6 +2,7 @@
 #define FRABIQUESINGLETON
 #include "Calendar.h"
 #include <list>
+using namespace std;
 
 
 //creation de la fabrique de singleton$

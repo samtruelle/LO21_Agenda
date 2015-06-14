@@ -4,8 +4,6 @@
 #include <QDate>
 #include <QTextStream>
 #include <list>
-#include  "programmationmanager.h"
-#include "projetmanager.h"
 
 using namespace std;
 
@@ -619,8 +617,7 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 /*<<<<<<< HEAD
 class ProgrammationManager {
 
@@ -642,12 +639,6 @@ public:
 =======
 
 >>>>>>> origin/master*/
-=======
 
 
->>>>>>> origin/master
-
-
-=======
->>>>>>> origin/master
-#endif
+#endif // CALENDAR_h

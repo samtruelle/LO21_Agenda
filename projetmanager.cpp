@@ -53,18 +53,13 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
     throw CalendarException("ProjetManager::getProjetByTache : pas de projet correspondant");
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-void ProjetManager::saveProjet(const QString& fichier) {
-=======
-=======
->>>>>>> origin/master
+
+
 
 //ProjetManager::~ProjetManager(){}
 
-/*
-void ProjetManager::save(const QString& fichier) {
->>>>>>> origin/master
+
+void ProjetManager::saveProjet(const QString& fichier) {
     QFile newfile(fichier);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");
@@ -133,4 +128,4 @@ void ProjetManager::save(const QString& fichier) {
     stream.writeEndDocument();
     newfile.close();
 }
-*/
+

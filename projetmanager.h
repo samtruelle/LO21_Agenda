@@ -116,14 +116,10 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *
      *  \param QString fichier nom du fichier
      */
-    void save(const QString& fichier);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
 void saveProjet(const QString& fichier);
-=======
-=======
->>>>>>> origin/master
     /*!
      *  \brief Destructeur
      *
@@ -131,7 +127,6 @@ void saveProjet(const QString& fichier);
      */
     virtual ~ProjetManager();
 
->>>>>>> origin/master
 };
 
 #endif // PROJETMANAGER

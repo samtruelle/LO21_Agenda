@@ -38,8 +38,7 @@ void ProgrammationManager::supprimerProgrammation(Evenement *e){
     throw CalendarException("suppProgrammation : pas de programmation correspondant");
 }
 
-/*
-ProgrammationManager::saveActivite(const QString& fichierbis){
+void ProgrammationManager::saveActivite(const QString& fichierbis) {
     QFile newfile(fichierbis);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");
@@ -48,38 +47,34 @@ ProgrammationManager::saveActivite(const QString& fichierbis){
     stream.writeStartDocument();
 //DEBUT SAVE ACTIVITE
     stream.writeStartElement("Activité");
-    EvenementManager& monEvenementManager = EvenementManager::getInstance();
-    std::list<Programmation*> iter = monEvenementManager.getEvenements();
-    // LOOP évènements.
-    for(std::list<>::iterator it = iter.begin(); it != iter.end(); it++) {
-        stream.writeStartElement("evenement");
+    ProgrammationManager& Progra = ProgrammationManager::getInstance();
+    std::list<Programmation*> itprog = Progra.getProgrammations();
+    // LOOP Programmation.
+    for(std::list<Programmation*>::iterator it = itprog.begin(); it != itprog.end(); it++) {
+        stream.writeStartElement("Activite");
+           Programmation* p= *it;
+               const Evenement* ev=p->getEvenement();
+               Evenement* e = const_cast<Evenement*> (ev);
 
-        if(dynamic_cast<Rdv*>(*it)) {
-            stream.writeAttribute("type", "rdv");
-            stream.writeTextElement("participant", ((Rdv*)(*it))->getParticipant());
-        } else if(dynamic_cast<Reunion*>(*it)) {
-            stream.writeAttribute("type", "reunion");
-            stream.writeTextElement("participants", ((Reunion*)(*it))->getParticipants());
-        } else if(dynamic_cast<ActiviteTrad*>(*it)) {
-            stream.writeAttribute("type", "acttrad");
-            stream.writeTextElement("lieu", ((ActiviteTrad*)(*it))->getLieu());
-        } else if(dynamic_cast<Partie*>(*it)) {
-            stream.writeAttribute("type", "partie");
-            stream.writeTextElement("id", QString::number(((Partie*)(*it))->getId()));
+        if(dynamic_cast<Activite*>(e)) {
+            stream.writeAttribute("type", "Activite");
+            stream.writeTextElement("Description", ((Activite*)e->getDescription()));
+            stream.writeTextElement("Duree", QString::number(((Activite*)e)->getDuree()));
+            stream.writeTextElement("Lieu", ((Activite*)e->getLieu()));
+
+            stream.writeTextElement("Date", (p->getDate()).toString("yyyy-MM-dd"));
+            stream.writeTextElement("Horaire", QString::number(p->getHoraire()));
+
         } else {
-            throw CalendarException("Erreur : type d'évènement inconnu, export impossible.");
+            throw CalendarException("Erreur: SAVE Activite failed  ");
         }
 
-        stream.writeTextElement("date", ((*it)->getDate()).toString("yyyy-MM-dd"));
-        stream.writeTextElement("sujet", (*it)->getDescription());
-        stream.writeTextElement("heureDebut", QString::number((*it)->getHeureDebut()));
-        stream.writeTextElement("dureeHeure", QString::number((*it)->getDuree()));
 
         stream.writeEndElement();
     }
     stream.writeEndElement();
-    // FIN ECRITURE EVENEMENTS
+    // FIN LOOP PROGRAMMATION
 
     stream.writeEndDocument();
     newfile.close();
-}*/
+}
