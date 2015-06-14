@@ -60,8 +60,9 @@ void ProjetManager::saveProjet(const QString& fichier) {
 =======
 >>>>>>> origin/master
 
-ProjetManager::~ProjetManager(){}
+//ProjetManager::~ProjetManager(){}
 
+/*
 void ProjetManager::save(const QString& fichier) {
 >>>>>>> origin/master
     QFile newfile(fichier);
@@ -132,4 +133,4 @@ void ProjetManager::save(const QString& fichier) {
     stream.writeEndDocument();
     newfile.close();
 }
-
+*/

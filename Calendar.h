@@ -620,6 +620,7 @@ public:
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*<<<<<<< HEAD
 class ProgrammationManager {
 
@@ -647,4 +648,6 @@ public:
 >>>>>>> origin/master
 
 
+=======
+>>>>>>> origin/master
 #endif
