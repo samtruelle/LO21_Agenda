@@ -1,4 +1,3 @@
-/*
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -63,8 +62,8 @@ public slots:
 
 
 };
-<<<<<<< HEAD
+
 #endif
-*/
+
 // MAINWINDOW_H
 

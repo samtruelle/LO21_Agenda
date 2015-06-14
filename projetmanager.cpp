@@ -27,6 +27,8 @@ void ProjetManager::ajouterProjet(const QString& id, const QDate& dispo, const Q
 
     if(existsProjet(id))
         throw CalendarException("ProjetManager::ajouterProjet Un projet avec cet id existe déjà");
+    if(dispo>echeance)
+        throw CalendarException("Date de disponibilité du projet ultérieur à la date d'échéance");
 
     Projet* nProjet = new Projet(id, dispo, echeance);
     projets.push_back(nProjet);
@@ -51,7 +53,14 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
     throw CalendarException("ProjetManager::getProjetByTache : pas de projet correspondant");
 }
 
+<<<<<<< HEAD
 void ProjetManager::saveProjet(const QString& fichier) {
+=======
+
+ProjetManager::~ProjetManager(){}
+
+void ProjetManager::save(const QString& fichier) {
+>>>>>>> origin/master
     QFile newfile(fichier);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
         throw CalendarException("Erreur : Save Failed,impossible d'ouvrir le fichier xml .");

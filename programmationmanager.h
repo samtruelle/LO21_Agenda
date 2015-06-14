@@ -1,11 +1,15 @@
 #ifndef PROGRAMMATIONMANAGER
 #define PROGRAMMATIONMANAGER
 #include "Calendar.h"
+<<<<<<< HEAD
 #include <QFile>
 #include <QTextStream>
 #include <QXmlStreamWriter>
 
 
+=======
+#include <list>
+>>>>>>> origin/master
 
 /*! \class ProgrammationManager
  * \brief classe singleton gérant les programmations
@@ -13,7 +17,6 @@
  *  La classe ProgrammationManager centralise toutes les opérations applicables au programmation
  */
 class ProgrammationManager {
-
 
     list<Programmation*> programmations;/*!< Liste des programmations*/
 
@@ -31,7 +34,7 @@ class ProgrammationManager {
      *
      *  Destructeur de la classe ProgrammationManager
      */
-    ~ProgrammationManager(){programmations.clear(); freeInstance();}
+    virtual ~ProgrammationManager();
 
 
     /*!
@@ -87,7 +90,7 @@ public:
        *
        *  \param Evenement& Evenement dont il faut trouver la programmation
        */
-      void ajouterProgrammation(const Evenement* e, const QDate& d, const QTime& h);
+      void ajouterProgrammation(Evenement* e, const QDate& d, const QTime& h);
 
 
       /*!
