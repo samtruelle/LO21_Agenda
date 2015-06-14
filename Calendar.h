@@ -619,8 +619,4 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-
-
-
-
 #endif

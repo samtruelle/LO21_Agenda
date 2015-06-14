@@ -54,8 +54,9 @@ Projet& ProjetManager::getProjetByTache(Tache& t){
 }
 
 
-ProjetManager::~ProjetManager(){}
+//ProjetManager::~ProjetManager(){}
 
+/*
 void ProjetManager::save(const QString& fichier) {
     QFile newfile(fichier);
     if (!newfile.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -125,4 +126,4 @@ void ProjetManager::save(const QString& fichier) {
     stream.writeEndDocument();
     newfile.close();
 }
-
+*/
