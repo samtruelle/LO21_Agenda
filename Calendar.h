@@ -614,4 +614,6 @@ public:
     QTime getHoraire() const { return horaire; }
 };
 
-#endif
+
+#endif // CALENDAR_h
+

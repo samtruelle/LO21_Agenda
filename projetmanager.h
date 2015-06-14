@@ -118,9 +118,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *
      *  \param QString fichier nom du fichier
      */
-    void save(const QString& fichier);
-
-
+    void saveProjet(const QString& fichier);
 
     /*!
      *  \brief Destructeur
