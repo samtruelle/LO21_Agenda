@@ -26,7 +26,7 @@ class ProjetManager /*: public FabriqueSingleton<ProjetManager,Projet>*/{
      *
      *  Constructeur de la classe TacheManager
      */
-    ProjetManager();
+    ProjetManager():projets(0){}
 
     /*!
      *  \brief Constructeur par recopie

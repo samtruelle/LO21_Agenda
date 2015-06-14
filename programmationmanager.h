@@ -26,14 +26,7 @@ class ProgrammationManager{
      *
      *  Constructeur de la classe ProgrammationManager
      */
-    ProgrammationManager();
-
-    /*!
-     *  \brief Destructeur
-     *
-     *  Destructeur de la classe ProgrammationManager
-     */
-    virtual ~ProgrammationManager();
+    ProgrammationManager():programmations(0){}
 
 
     /*!
@@ -73,6 +66,7 @@ public:
       */
       void freeInstance(){
          if(instance) delete instance;
+         instance = 0;
       }
 
       /*!
@@ -122,6 +116,8 @@ public:
        */
 
       void saveActivite(const QString& fichierbis);
+
+
 
 };
 

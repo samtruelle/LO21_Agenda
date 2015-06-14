@@ -342,12 +342,9 @@ public:
  *
  */
 class Evenement{
-  protected:
     unsigned int duree;/*!< Durée de l'évènement*/
 
     QString description;/*!< description de l'évènement*/
-
-
 
 public :
 
@@ -427,7 +424,7 @@ public:
  *
  *  La classe TacheUnitaire hérite de la classe Tache et de la classe Evenement.
  */
-class TacheUnitaire : public Tache,Evenement{
+class TacheUnitaire : public Tache, public Evenement{
 
     bool preemptable; /*!< Statut de la 'préemptivité' de la tâche*/
 

@@ -2,7 +2,6 @@
 #define FRABIQUESINGLETON
 #include "Calendar.h"
 #include <list>
-using namespace std;
 
 using namespace std;
 
@@ -100,7 +99,7 @@ void FabriqueSingleton<T,U>::ajouterItem(U* i){
 template<typename T,typename U>
 U& FabriqueSingleton<T,U>::getItem(const QString& id){
     for(list<U*>::iterator it=items.begin();it != items.end;++it){
-        if((*it)->getId == id)
+        if((*it)->getId() == id)
             return *(*it);
     }
     return 0;

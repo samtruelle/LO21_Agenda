@@ -3,6 +3,7 @@
 #include "Calendar.h"
 #include "projetmanager.h"
 #include "mainwindow.h"
+#include <QDebug>
 
 
 
@@ -18,8 +19,9 @@ int main(int argc, char* argv[])
 
     pm.ajouterProjet((QString)"test",QDate(2000, 1, 1),QDate(2000, 2, 1));
 
+    qDebug()<<pm.getProjet((QString)"test").getId();
+
+
     return 0;
-
-
 
 }

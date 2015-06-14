@@ -55,9 +55,9 @@ public:
     void ajoutersousTache();
     void afficherPrec();
 public slots:
-    void on_AjouterTache_clicked();
-     void on_AjouterActivite_clicked();
-     void on_ProgrammeEvt_clicked();
+    //void on_AjouterTache_clicked();
+     //void on_AjouterActivite_clicked();
+     //void on_ProgrammeEvt_clicked();
 
 
 
